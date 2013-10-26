@@ -1,0 +1,16 @@
+vendor/*
+
+build/api
+build/bin
+build/code-browser
+build/coverage
+build/logs
+build/pdepend
+build/phpdox
+build/php.d/original-php.ini
+
+phpunit.xml
+
+composer.lock
+
+cache.properties

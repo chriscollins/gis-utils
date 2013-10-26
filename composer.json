@@ -1,0 +1,32 @@
+{
+    "name": "chriscollins/gis-utils",
+    "description": "A PHP library for performing GIS tasks, such as geocoding addresses and transforming coordinates.",
+    "keywords": ["GIS", "Geocode", "Mapping", "Latitude", "Longitude", "Datum", "Postcode"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Collins",
+            "email": "chrisjamescollins@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-http": "*",
+        "pimple/pimple": "~1.0.2",
+        "chriscollins/general-utils": "~1.0.0"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:chriscollins/general-utils.git"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "": "lib/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}

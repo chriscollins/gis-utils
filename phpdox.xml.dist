@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpdox xmlns="http://phpdox.de/config" silent="false">
+    <bootstrap />
+    <project name="GIS Utils" source="${basedir}/lib" workdir="${basedir}/build/phpdox/xml">
+
+        <collector publiconly="false" backend="parser">
+            <include mask="*.php" />
+            <exclude mask="" />
+            <inheritance resolve="true">
+            </inheritance>
+        </collector>
+
+        <generator output="${basedir}/build/phpdox/output">
+            <enrich path="${basedir}/build/logs">
+                <source type="checkstyle">
+                    <file name="checkstyle.xml" />
+                </source>
+
+                <source type="pmd">
+                    <file name="pmd.xml" />
+                </source>
+
+                <source type="clover">
+                    <file name="clover.xml" />
+                </source>
+
+                <source type="phpunit">
+                    <file name="junit.xml" />
+                </source>
+            </enrich>
+
+            <build engine="html" enabled="true" output="html">
+                <template dir="${phpDox.home}/templates/html" />
+                <file extension="xhtml" />
+            </build>
+
+            <build engine="todo" enabled="true" output="todo">
+                <file name="todolist.txt" encoding="utf-8" />
+            </build>
+
+            <build engine="graph" enabled="true" output="graph">
+                <dot executable="/usr/bin/dot" options="" />
+                <file name="graph.png" options="" format="png" />
+            </build>
+        </generator>
+    </project>
+
+</phpdox>
