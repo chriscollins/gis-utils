@@ -26,14 +26,9 @@ class GoogleLookup implements LookupInterface
     const SERVICE_DATUM = DatumFactory::DATUM_WGS84;
 
     /**
-     * @var string Constant for the URL host for the service.
+     * @var string Constant for the base URL (without the scheme) for the service.
      */
-    const SERVICE_HOST = 'maps.googleapis.com';
-
-    /**
-     * @var string Constant for the URL path for the service.
-     */
-    const SERVICE_PATH = '/maps/api/geocode/json';
+    const SERVICE_BASE_URL = 'maps.googleapis.com/maps/api/geocode/json';
 
     /**
      * @var DatumFactory The DatumFactory to use when creating LatLongs.
@@ -161,14 +156,7 @@ class GoogleLookup implements LookupInterface
             )
         );
 
-        return http_build_url(
-            array(
-                'scheme' => $this->useHttps ? 'https' : 'http',
-                'host' => self::SERVICE_HOST,
-                'path' => self::SERVICE_PATH,
-                'query' => $query
-            )
-        );
+        return ($this->useHttps ? 'https' : 'http') . self::SERVICE_BASE_URL . '?' . $query;
     }
 
     /**
