@@ -1,6 +1,8 @@
 GIS Utils
 =========
 
+[![Build Status](https://travis-ci.org/chriscollins/gis-utils.svg?branch=master)](https://travis-ci.org/chriscollins/gis-utils)
+
 A PHP library for performing GIS tasks, such as geocoding addresses and transforming coordinates.
 
 [https://github.com/chriscollins/gis-utils](https://github.com/chriscollins/gis-utils)

@@ -14,12 +14,11 @@
         "pimple/pimple": "~1.0.2",
         "chriscollins/general-utils": "~1.0.0"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "git@github.com:chriscollins/general-utils.git"
-        }
-    ],
+    "require-dev": {
+        "phpunit/phpunit": "~4.1",
+        "squizlabs/php_codesniffer": "~1.5",
+        "phpmd/phpmd": "~2.0"
+    },
     "autoload": {
         "psr-0": { "": "lib/" }
     },
@@ -27,5 +26,8 @@
         "branch-alias": {
             "dev-master": "1.1.x-dev"
         }
+    },
+    "config": {
+        "bin-dir": "bin"
     }
 }

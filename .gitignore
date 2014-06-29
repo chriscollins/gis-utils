@@ -1,3 +1,4 @@
+bin/*
 vendor/*
 
 build/api
@@ -7,10 +8,7 @@ build/coverage
 build/logs
 build/pdepend
 build/phpdox
-build/php.d/original-php.ini
 
 phpunit.xml
 
 composer.lock
-
-cache.properties
