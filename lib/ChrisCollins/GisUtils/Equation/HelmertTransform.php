@@ -14,42 +14,42 @@ class HelmertTransform
     /**
      * @var int Constant for the number of arcseconds in a degree.
      */
-    const ARCSECONDS_PER_DEGREE = 3600;
+    private const ARCSECONDS_PER_DEGREE = 3600;
 
     /**
      * @var float The x translation value in metres.
      */
-    protected $translationX = null;
+    private $translationX;
 
     /**
      * @var float The y translation value in metres.
      */
-    protected $translationY = null;
+    private $translationY;
 
     /**
      * @var float The z translation value in metres.
      */
-    protected $translationZ = null;
+    private $translationZ;
 
     /**
      * @var float The x rotation value in arcseconds.
      */
-    protected $rotationX = null;
+    private $rotationX;
 
     /**
      * @var float The y rotation value in arcseconds.
      */
-    protected $rotationY = null;
+    private $rotationY;
 
     /**
      * @var float The z rotation value in arcseconds.
      */
-    protected $rotationZ = null;
+    private $rotationZ;
 
     /**
      * @var float The scale factor value in parts-per-million.
      */
-    protected $scaleFactor = null;
+    private $scaleFactor;
 
     /**
      * Constructor.

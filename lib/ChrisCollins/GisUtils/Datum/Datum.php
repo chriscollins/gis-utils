@@ -15,17 +15,17 @@ class Datum
     /**
      * @var string The name of the datum (e.g. "WGS84").
      */
-    protected $name = null;
+    private $name;
 
     /**
      * @var Ellipsoid The ellipsoid that the datum uses.
      */
-    protected $ellipsoid = null;
+    private $ellipsoid;
 
     /**
      * @var HelmertTransform|null A HelmertTransform to convert to this datum from WGS84,.
      */
-    protected $fromWgs84HelmertTransform = null;
+    private $fromWgs84HelmertTransform;
 
     /**
      * Constructor.

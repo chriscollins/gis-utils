@@ -38,22 +38,22 @@ class DatumTest extends AbstractTestCase
     /**
      * @var Datum A Datum instance.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * @var EllipsoidFactory An EllipsoidFactory.
      */
-    protected $ellipsoidFactory = null;
+    private $ellipsoidFactory;
 
     /**
      * @var Ellipsoid The ellipsoid to use.
      */
-    protected $ellipsoid = null;
+    private $ellipsoid;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $ellipsoidFactory = new EllipsoidFactory();
         $this->ellipsoid = $ellipsoidFactory->create(EllipsoidFactory::ELLIPSOID_WGS84);

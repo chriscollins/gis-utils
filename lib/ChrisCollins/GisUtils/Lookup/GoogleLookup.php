@@ -23,32 +23,32 @@ class GoogleLookup implements LookupInterface
     /**
      * @var string Constant for the datum that coordinates returned by the service use.
      */
-    const SERVICE_DATUM = DatumFactory::DATUM_WGS84;
+    public const SERVICE_DATUM = DatumFactory::DATUM_WGS84;
 
     /**
      * @var string Constant for the base URL (without the scheme) for the service.
      */
-    const SERVICE_BASE_URL = 'maps.googleapis.com/maps/api/geocode/json';
+    private const SERVICE_BASE_URL = 'maps.googleapis.com/maps/api/geocode/json';
 
     /**
      * @var DatumFactory The DatumFactory to use when creating LatLongs.
      */
-    protected $datumFactory = null;
+    private $datumFactory;
 
     /**
      * @var CurlHandle The CurlHandle to use when making requests.
      */
-    protected $curlHandle = null;
+    private $curlHandle;
 
     /**
      * @var JsonCodec The JsonCodec to use to decode JSON responses.
      */
-    protected $jsonCodec = null;
+    private $jsonCodec;
 
     /**
      * @var boolean Whether or not HTTPS requests should be made.
      */
-    protected $useHttps = false;
+    private $useHttps;
 
     /**
      * Constructor.
@@ -150,10 +150,10 @@ class GoogleLookup implements LookupInterface
     protected function getServiceUrl($address)
     {
         $query = http_build_query(
-            array(
+            [
                 'address' => $address->toString(),
                 'sensor' => 'false'
-            )
+            ]
         );
 
         return ($this->useHttps ? 'https' : 'http') . self::SERVICE_BASE_URL . '?' . $query;

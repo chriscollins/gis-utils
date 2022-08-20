@@ -16,12 +16,12 @@ class HelmertTransformFactoryTest extends AbstractTestCase
     /**
      * @var HelmertTransformFactory A HelmertTransformFactory instance.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->instance = new HelmertTransformFactory();
     }

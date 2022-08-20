@@ -18,22 +18,22 @@ class LatLongTest extends AbstractTestCase
     /**
      * @var LatLong A LatLong instance representing the top of Pen y Fan.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * @var DatumFactory A DatumFactory instance.
      */
-    protected $datumFactory = null;
+    private $datumFactory;
 
     /**
      * @var LatLongsFixture A fixture instance.
      */
-    protected $latLongsFixture = null;
+    private $latLongsFixture;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->datumFactory = new DatumFactory(new EllipsoidFactory(), new HelmertTransformFactory());
         $this->latLongsFixture = new LatLongsFixture();

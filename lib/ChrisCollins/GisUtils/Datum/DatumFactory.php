@@ -5,7 +5,7 @@ namespace ChrisCollins\GisUtils\Datum;
 use ChrisCollins\GisUtils\Equation\HelmertTransformFactory;
 use ChrisCollins\GisUtils\AbstractFactory;
 use ChrisCollins\GisUtils\Ellipsoid\EllipsoidFactory;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * DatumFactory
@@ -17,35 +17,35 @@ class DatumFactory extends AbstractFactory
     /**#@+
      * @var string Constant for the name of the datum.
      */
-    const DATUM_WGS84 = 'WGS84';
-    const DATUM_OSGB36 = 'OSGB36';
-    const DATUM_ED50 = 'ED50';
+    public const DATUM_WGS84 = 'WGS84';
+    public const DATUM_OSGB36 = 'OSGB36';
+    public const DATUM_ED50 = 'ED50';
     /**#@-*/
 
     /**
      * @var array Array of configuration for all supported datums, keyed on their names.
      */
-    protected static $data = array(
-        self::DATUM_WGS84 => array(
+    protected static $data = [
+        self::DATUM_WGS84 => [
             'ellipsoid' => EllipsoidFactory::ELLIPSOID_WGS84
-        ),
-        self::DATUM_OSGB36 => array(
+        ],
+        self::DATUM_OSGB36 => [
             'ellipsoid' => EllipsoidFactory::ELLIPSOID_AIRY_1830
-        ),
-        self::DATUM_ED50 => array(
+        ],
+        self::DATUM_ED50 => [
             'ellipsoid' => EllipsoidFactory::ELLIPSOID_INTERNATIONAL_1924
-        )
-    );
+        ]
+    ];
 
     /**
      * @var EllipsoidFactory The EllipsoidFactory.
      */
-    protected $ellipsoidFactory = null;
+    private $ellipsoidFactory = null;
 
     /**
      * @var HelmertTransformFactory The HelmertTransformFactory.
      */
-    protected $helmertTransformFactory = null;
+    private $helmertTransformFactory = null;
 
     /**
      * Constructor.

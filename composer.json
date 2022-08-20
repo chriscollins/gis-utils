@@ -10,21 +10,23 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "pimple/pimple": "~1.0.2",
+        "php": ">=7.4.0",
+        "pimple/pimple": "~3.5.0",
         "chriscollins/general-utils": "~1.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.1",
-        "squizlabs/php_codesniffer": "~1.5",
-        "phpmd/phpmd": "~2.0"
+        "phpunit/phpunit": "~9.5.22",
+        "squizlabs/php_codesniffer": "~3.7.1"
     },
     "autoload": {
-        "psr-0": { "": "lib/" }
+        "psr-4": { "ChrisCollins\\GisUtils\\": "lib/ChrisCollins/GisUtils" }
+    },
+    "autoload-dev": {
+        "psr-4": { "ChrisCollins\\GisUtils\\Test\\": "test/ChrisCollins/GisUtils/Test" }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1.x-dev"
+            "dev-master": "2.x-dev"
         }
     },
     "config": {

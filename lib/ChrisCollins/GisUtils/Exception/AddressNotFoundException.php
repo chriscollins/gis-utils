@@ -2,7 +2,7 @@
 
 namespace ChrisCollins\GisUtils\Exception;
 
-use \RuntimeException;
+use RuntimeException;
 
 /**
  * AddressNotFoundException

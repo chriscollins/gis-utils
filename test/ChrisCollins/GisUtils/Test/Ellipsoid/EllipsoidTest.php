@@ -33,12 +33,12 @@ class EllipsoidTest extends AbstractTestCase
     /**
      * @var Ellipsoid An Ellipsoid instance.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->instance = new Ellipsoid(
             self::WGS84_NAME,

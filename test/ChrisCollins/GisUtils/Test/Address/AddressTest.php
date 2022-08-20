@@ -13,12 +13,12 @@ class AddressTest extends AbstractTestCase
     /**
      * @var Address An Address instance.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->instance = new Address();
     }

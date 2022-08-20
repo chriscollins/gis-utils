@@ -12,42 +12,42 @@ class Address implements AddressInterface
     /**
      * @var string The house number.
      */
-    protected $houseNumber = null;
+    private $houseNumber;
 
     /**
      * @var string The house name.
      */
-    protected $houseName = null;
+    private $houseName;
 
     /**
      * @var string The first line of the address.
      */
-    protected $address1 = null;
+    private $address1;
 
     /**
      * @var string The second line of the address.
      */
-    protected $address2 = null;
+    private $address2;
 
     /**
      * @var string The town.
      */
-    protected $town = null;
+    private $town;
 
     /**
      * @var string The county.
      */
-    protected $county = null;
+    private $county;
 
     /**
      * @var string The country.
      */
-    protected $country = null;
+    private $country;
 
     /**
      * @var string The postcode.
      */
-    protected $postcode = null;
+    private $postcode;
 
     /**
      * Accessor method.
@@ -250,25 +250,25 @@ class Address implements AddressInterface
     {
         $string = '';
 
-        if (strlen($this->houseName)) {
+        if ($this->houseName !== null && strlen($this->houseName)) {
             $string .= $this->houseName . ",\n";
-        } elseif (strlen($this->houseNumber)) {
+        } elseif ($this->houseNumber !== null && strlen($this->houseNumber)) {
             $string .= $this->houseNumber . ' ';
         }
 
-        $fieldList = array(
+        $fieldList = [
             $this->address1,
             $this->address2,
             $this->town,
             $this->county,
             $this->country,
             $this->postcode
-        );
+        ];
 
-        $usedFields = array();
+        $usedFields = [];
 
         foreach ($fieldList as $field) {
-            if (strlen($field)) {
+            if ($field !== null && strlen($field)) {
                 $usedFields[] = $field;
             }
         }

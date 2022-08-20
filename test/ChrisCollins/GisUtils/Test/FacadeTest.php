@@ -2,15 +2,12 @@
 
 namespace ChrisCollins\GisUtils\Test;
 
-use ChrisCollins\GisUtils\LatLong;
 use ChrisCollins\GisUtils\Facade;
 use ChrisCollins\GisUtils\Address\Address;
 use ChrisCollins\GisUtils\Datum\DatumFactory;
 use ChrisCollins\GisUtils\Ellipsoid\EllipsoidFactory;
-use ChrisCollins\GisUtils\Lookup\Google;
 use ChrisCollins\GisUtils\Test\Fixture\GoogleGeocoderFixture;
 use ChrisCollins\GisUtils\Test\Fixture\LatLongsFixture;
-use \InvalidArgumentException;
 
 /**
  * FacadeTest
@@ -20,32 +17,27 @@ class FacadeTest extends AbstractTestCase
     /**
      * @var Facade A Facade instance.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * @var Address An Address instance.
      */
-    protected $address = null;
+    private $address;
 
     /**
      * @var GoogleGeocoderFixture A GoogleGeocoderFixture instance.
      */
-    protected $googleGeocoderFixture = null;
+    private $googleGeocoderFixture;
 
     /**
      * @var LatLongsFixture A LatLongsFixture instance.
      */
-    protected $latLongsFixture = null;
-
-    /**
-     * @var LatLong A LatLong instance.
-     */
-    protected $latLong = null;
+    private $latLongsFixture;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->googleGeocoderFixture = new GoogleGeocoderFixture();
         $this->latLongsFixture = new LatLongsFixture();
@@ -164,7 +156,7 @@ class FacadeTest extends AbstractTestCase
      */
     protected function getMockCurlHandleForJson($jsonFileName, $errorCode = null)
     {
-        $mockCurlHandle = $this->getMock(
+        $mockCurlHandle = $this->createMock(
             'ChrisCollins\GeneralUtils\Curl\CurlHandle',
             array('execute', 'getErrorCode')
         );

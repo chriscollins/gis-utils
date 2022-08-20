@@ -1,7 +1,7 @@
 GIS Utils
 =========
 
-[![Build Status](https://travis-ci.org/chriscollins/gis-utils.svg?branch=master)](https://travis-ci.org/chriscollins/gis-utils)
+![Build Status](https://github.com/chriscollins/gis-utils/actions/workflows/build.yml/badge.svg)
 
 A PHP library for performing GIS tasks, such as geocoding addresses and transforming coordinates.
 
@@ -15,7 +15,7 @@ Require in your project via composer as follows:
 ```json
 {
     "require": {
-        "chriscollins/gis-utils": "~1.0.0"
+        "chriscollins/gis-utils": "~2.0.0"
     }
 }
 ```

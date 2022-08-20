@@ -14,22 +14,22 @@ class CartesianCoordinate
     /**
      * @var float The X coordinate.
      */
-    protected $x = null;
+    private $x;
 
     /**
      * @var float The Y coordinate.
      */
-    protected $y = null;
+    private $y;
 
     /**
      * @var float The Z coordinate.
      */
-    protected $z = null;
+    private $z;
 
     /**
      * @var Datum The datum that the coordinate uses.
      */
-    protected $datum = null;
+    private $datum;
 
     /**
      * Constructor.

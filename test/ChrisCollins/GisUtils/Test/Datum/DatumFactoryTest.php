@@ -17,12 +17,12 @@ class DatumFactoryTest extends AbstractTestCase
     /**
      * @var Datum A Datum instance.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->instance = new DatumFactory(new EllipsoidFactory(), new HelmertTransformFactory());
     }

@@ -203,7 +203,7 @@ class LatLongsFixture
     /**
      * @var Datum A Datum that LatLongs will be initialised with.
      */
-    protected $datum = null;
+    private $datum;
 
     /**
      * Constructor.

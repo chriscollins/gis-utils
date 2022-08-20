@@ -2,60 +2,50 @@
 
 namespace ChrisCollins\GisUtils;
 
+use ChrisCollins\GeneralUtils\Curl\CurlHandle;
+use ChrisCollins\GeneralUtils\Json\JsonCodec;
+use ChrisCollins\GisUtils\Address\AddressInterface;
 use ChrisCollins\GisUtils\Datum\DatumFactory;
 use ChrisCollins\GisUtils\Ellipsoid\EllipsoidFactory;
 use ChrisCollins\GisUtils\Equation\HelmertTransformFactory;
 use ChrisCollins\GisUtils\Lookup\GoogleLookup;
-use ChrisCollins\GisUtils\Address\AddressInterface;
-use ChrisCollins\GeneralUtils\Json\JsonCodec;
-use ChrisCollins\GeneralUtils\Curl\CurlHandle;
-use \Pimple;
+use Pimple\Container;
 
 /**
  * Facade
  *
  * A facade for the library.
  */
-class Facade extends Pimple
+class Facade extends Container
 {
     /**
      * Constructor.
      */
     public function __construct()
     {
-        $this['EllipsoidFactory'] = $this->share(
-            function () {
-                return new EllipsoidFactory();
-            }
-        );
+        $this['EllipsoidFactory'] = function () {
+            return new EllipsoidFactory();
+        };
 
-        $this['HelmertTransformFactory'] = $this->share(
-            function () {
-                return new HelmertTransformFactory();
-            }
-        );
+        $this['HelmertTransformFactory'] = function () {
+            return new HelmertTransformFactory();
+        };
 
-        $this['DatumFactory'] = $this->share(
-            function ($container) {
-                return new DatumFactory($container['EllipsoidFactory'], $container['HelmertTransformFactory']);
-            }
-        );
+        $this['DatumFactory'] = function ($container) {
+            return new DatumFactory($container['EllipsoidFactory'], $container['HelmertTransformFactory']);
+        };
 
         $this['CurlHandle'] = function () {
             return new CurlHandle();
         };
 
-        $this['JsonCodec'] = $this->share(
-            function () {
-                return new JsonCodec();
-            }
-        );
+        $this['JsonCodec'] = function () {
+            return new JsonCodec();
+        };
 
-        $this['GoogleLookup'] = $this->share(
-            function ($container) {
-                return new GoogleLookup($container['DatumFactory'], $container['CurlHandle'], $container['JsonCodec']);
-            }
-        );
+        $this['GoogleLookup'] = function ($container) {
+            return new GoogleLookup($container['DatumFactory'], $container['CurlHandle'], $container['JsonCodec']);
+        };
     }
 
     /**

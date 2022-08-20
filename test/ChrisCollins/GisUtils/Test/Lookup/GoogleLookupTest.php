@@ -32,32 +32,32 @@ class GoogleLookupTest extends AbstractTestCase
     /**
      * @var GoogleLookup A GoogleLookup instance.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * @var GoogleGeocoderFixture A GoogleGeocoderFixture instance.
      */
-    protected $googleGeocoderFixture = null;
+    private $googleGeocoderFixture;
 
     /**
      * @var Address An Address instance.
      */
-    protected $address = null;
+    private $address;
 
     /**
      * @var DatumFactory A DatumFactory instance.
      */
-    protected $datumFactory = null;
+    private $datumFactory;
 
     /**
      * @var JsonCodec A JsonCodec instance.
      */
-    protected $jsonCodec = null;
+    private $jsonCodec;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->googleGeocoderFixture = new GoogleGeocoderFixture();
 
@@ -195,7 +195,7 @@ class GoogleLookupTest extends AbstractTestCase
      */
     protected function getMockCurlHandleForJson($jsonFileName, $errorCode = null)
     {
-        $mockCurlHandle = $this->getMock(
+        $mockCurlHandle = $this->createMock(
             'ChrisCollins\GeneralUtils\Curl\CurlHandle',
             array('execute', 'getErrorCode')
         );

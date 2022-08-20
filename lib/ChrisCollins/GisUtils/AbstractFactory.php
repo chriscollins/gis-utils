@@ -2,7 +2,7 @@
 
 namespace ChrisCollins\GisUtils;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * AbstractFactory
@@ -14,7 +14,7 @@ abstract class AbstractFactory
     /**
      * @var array Array of static data for creating objects.
      */
-    protected static $data = array();
+    protected static $data = [];
 
     /**
      * Factory method.

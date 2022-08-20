@@ -17,17 +17,17 @@ class CartesianCoordinateTest extends AbstractTestCase
     /**
      * @var CartesianCoordinate A CartesianCoordinate instance.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * @var DatumFactory A DatumFactory instance.
      */
-    protected $datumFactory = null;
+    private $datumFactory;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->datumFactory = new DatumFactory(new EllipsoidFactory(), new HelmertTransformFactory());
 

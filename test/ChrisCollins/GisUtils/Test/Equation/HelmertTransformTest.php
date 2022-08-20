@@ -13,12 +13,12 @@ class HelmertTransformTest extends AbstractTestCase
     /**
      * @var HelmertTransform A HelmertTransform instance.
      */
-    protected $instance = null;
+    private $instance;
 
     /**
      * Set up.
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->instance = new HelmertTransform(-446.448, 125.157, -542.060, -0.1502, -0.2470, -0.8421, 20.4894);
     }

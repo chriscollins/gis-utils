@@ -4,7 +4,7 @@ namespace ChrisCollins\GisUtils\Equation;
 
 use ChrisCollins\GisUtils\AbstractFactory;
 use ChrisCollins\GisUtils\Datum\DatumFactory;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * HelmertTransformFactory
@@ -16,13 +16,13 @@ class HelmertTransformFactory extends AbstractFactory
     /**
      * @var string The name of the base datum.
      */
-    const BASE_DATUM = DatumFactory::DATUM_WGS84;
+    public const BASE_DATUM = DatumFactory::DATUM_WGS84;
 
     /**
      * @var array Array of data for transforming coordinates from WGS84 to the given datum.
      */
-    protected static $data = array(
-        DatumFactory::DATUM_OSGB36 => array(
+    protected static $data = [
+        DatumFactory::DATUM_OSGB36 => [
             'translationX' => -446.448,
             'translationY' => 125.157,
             'translationZ' => -542.060,
@@ -30,8 +30,8 @@ class HelmertTransformFactory extends AbstractFactory
             'rotationY' => -0.2470,
             'rotationZ' => -0.8421,
             'scaleFactor' => 20.4894
-        ),
-        DatumFactory::DATUM_ED50 => array(
+        ],
+        DatumFactory::DATUM_ED50 => [
             'translationX' => 89.5,
             'translationY' => 93.8,
             'translationZ' => 123.1,
@@ -39,8 +39,8 @@ class HelmertTransformFactory extends AbstractFactory
             'rotationY' => 0,
             'rotationZ' => 0.156,
             'scaleFactor' => -1.2
-        )
-    );
+        ]
+    ];
 
     /**
      * Get a HelmertTransform for transforming base datum coordinates to coordinates in a given datum.

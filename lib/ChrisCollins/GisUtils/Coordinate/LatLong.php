@@ -3,8 +3,7 @@
 namespace ChrisCollins\GisUtils\Coordinate;
 
 use ChrisCollins\GisUtils\Datum\Datum;
-use ChrisCollins\GisUtils\Equation\HelmertTransformFactory;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * LatLong
@@ -17,27 +16,27 @@ class LatLong
      * @var int The mean radius of Earth in metres.  Not datum-specific, this is used in less-accurate distance
      *          calculations, as it treats the Earth as a sphere.
      */
-    const EARTH_MEAN_RADIUS_METRES = 6371000;
+    private const EARTH_MEAN_RADIUS_METRES = 6371000;
 
     /**
      * @var float The latitude in decimal degrees.
      */
-    protected $latitude = null;
+    private $latitude;
 
     /**
      * @var float The longitude in decimal degrees.
      */
-    protected $longitude = null;
+    private $longitude;
 
     /**
      * @var float The height in metres.
      */
-    protected $height = null;
+    private $height;
 
     /**
      * @var Datum The datum.
      */
-    protected $datum = null;
+    private $datum;
 
     /**
      * Constructor.
@@ -309,7 +308,7 @@ class LatLong
                 $cos2SigmaM = $cosSigma - 2 * $sinReducedLat * $sinReducedLatDest / $cosSqAlpha;
             }
 
-            $c = $f / 16 * $cosSqAlpha * (4 + $f *(4 - 3 * $cosSqAlpha));
+            $c = $f / 16 * $cosSqAlpha * (4 + $f * (4 - 3 * $cosSqAlpha));
 
             $lambdaP = $lambda;
             $lambda = $longDiffRad + (1 - $c) * $f * $sinAlpha *

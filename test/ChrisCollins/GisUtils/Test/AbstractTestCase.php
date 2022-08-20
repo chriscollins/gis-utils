@@ -2,14 +2,14 @@
 
 namespace ChrisCollins\GisUtils\Test;
 
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * AbstractTestCase
  *
  * Abstract test case class.
  */
-abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends TestCase
 {
     /**
      * Assert that a float is equal to a value if it is rounded to a given number of significant figures.
@@ -19,7 +19,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
      * @param int $significantFigures The number of significant figures to round to.
      * @param string|null $message An optional override message.
      */
-    public function assertEqualsWhenRounded($expected, $actual, $significantFigures, $message = null)
+    public function assertEqualsWhenRounded($expected, $actual, $significantFigures, $message = null): void
     {
         if ($message === null) {
             $message = "Failed asserting that {$actual} matches expected {$expected} when rounded to " .
@@ -37,7 +37,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
      * @param float $tolerance The tolerance.
      * @param string|null $message An optional override message.
      */
-    public function assertEqualsWithinTolerance($expected, $actual, $tolerance, $message = null)
+    public function assertEqualsWithinTolerance($expected, $actual, $tolerance, $message = null): void
     {
         $difference = abs($expected - $actual);
 
@@ -57,7 +57,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
      * @param float $tolerance The percentage tolerance.
      * @param string|null $message An optional override message.
      */
-    public function assertEqualsWithinPercentageTolerance($expected, $actual, $tolerance, $message = null)
+    public function assertEqualsWithinPercentageTolerance($expected, $actual, $tolerance, $message = null): void
     {
         $percentageDifference = abs($expected - $actual) / $expected * 100;
 

@@ -12,22 +12,22 @@ class Ellipsoid
     /**
      * @var string The name of the ellipsoid (e.g. "WGS84").
      */
-    protected $name = null;
+    private $name;
 
     /**
      * @var float The length of the Earth's semi-major axis a, AKA equatorial radius in metres.
      */
-    protected $semiMajorAxisMetres = null;
+    private $semiMajorAxisMetres;
 
     /**
      * @var float The length of the Earth's semi-minor axis b, AKA polar radius in metres.
      */
-    protected $semiMinorAxisMetres = null;
+    private $semiMinorAxisMetres;
 
     /**
      * @var float The flattening.
      */
-    protected $flattening = null;
+    private $flattening;
 
     /**
      * Constructor.
