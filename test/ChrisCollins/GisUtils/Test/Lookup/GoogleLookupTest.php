@@ -85,7 +85,7 @@ class GoogleLookupTest extends AbstractTestCase
      *
      * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue)
+    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
         $ucfirstPropertyName = ucfirst($propertyName);
 
@@ -112,7 +112,7 @@ class GoogleLookupTest extends AbstractTestCase
         );
     }
 
-    public function testSuccessfulSingleAddressResponseIsParsedCorrectly()
+    public function testSuccessfulSingleAddressResponseIsParsedCorrectly(): void
     {
         $latLong = $this->instance->addressToLatLong($this->address);
 
@@ -121,7 +121,7 @@ class GoogleLookupTest extends AbstractTestCase
         $this->assertEquals(GoogleLookup::SERVICE_DATUM, $latLong->getDatum()->getName());
     }
 
-    public function testFailJunkResponseThrowsExpectedException()
+    public function testFailJunkResponseThrowsExpectedException(): void
     {
         $exceptionThrown = false;
 
@@ -137,7 +137,7 @@ class GoogleLookupTest extends AbstractTestCase
         $this->assertTrue($exceptionThrown);
     }
 
-    public function testFailNoLatLongThrowsExpectedException()
+    public function testFailNoLatLongThrowsExpectedException(): void
     {
         $exceptionThrown = false;
 
@@ -153,7 +153,7 @@ class GoogleLookupTest extends AbstractTestCase
         $this->assertTrue($exceptionThrown);
     }
 
-    public function testFailZeroResultsThrowsExpectedException()
+    public function testFailZeroResultsThrowsExpectedException(): void
     {
         $exceptionThrown = false;
 
@@ -169,7 +169,7 @@ class GoogleLookupTest extends AbstractTestCase
         $this->assertTrue($exceptionThrown);
     }
 
-    public function testCurlErrorThrowsExpectedException()
+    public function testCurlErrorThrowsExpectedException(): void
     {
         $exceptionThrown = false;
 

@@ -48,7 +48,7 @@ class EllipsoidTest extends AbstractTestCase
         );
     }
 
-    public function testConstructorSetsExpectedPropertyValues()
+    public function testConstructorSetsExpectedPropertyValues(): void
     {
         $this->assertEquals(self::WGS84_NAME, $this->instance->getName());
         $this->assertEquals(self::WGS84_SEMI_MAJOR_AXIS_METRES, $this->instance->getSemiMajorAxisMetres());
@@ -64,7 +64,7 @@ class EllipsoidTest extends AbstractTestCase
      *
      * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue)
+    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
         $ucfirstPropertyName = ucfirst($propertyName);
 
@@ -94,7 +94,7 @@ class EllipsoidTest extends AbstractTestCase
         );
     }
 
-    public function testToStringMethodReturnsExpectedResult()
+    public function testToStringMethodReturnsExpectedResult(): void
     {
         $this->assertEquals($this->instance->getName(), $this->instance->toString());
     }

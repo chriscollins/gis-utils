@@ -75,7 +75,7 @@ class HelmertTransformFactory extends AbstractFactory
     /**
      * {@inheritdoc}
      */
-    protected function createFromData($name, array $data)
+    protected function createFromData($name, array $data): HelmertTransform
     {
         return new HelmertTransform(
             $data['translationX'],

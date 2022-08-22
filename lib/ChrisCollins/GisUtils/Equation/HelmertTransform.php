@@ -19,37 +19,37 @@ class HelmertTransform
     /**
      * @var float The x translation value in metres.
      */
-    private $translationX;
+    private float $translationX;
 
     /**
      * @var float The y translation value in metres.
      */
-    private $translationY;
+    private float $translationY;
 
     /**
      * @var float The z translation value in metres.
      */
-    private $translationZ;
+    private float $translationZ;
 
     /**
      * @var float The x rotation value in arcseconds.
      */
-    private $rotationX;
+    private float $rotationX;
 
     /**
      * @var float The y rotation value in arcseconds.
      */
-    private $rotationY;
+    private float $rotationY;
 
     /**
      * @var float The z rotation value in arcseconds.
      */
-    private $rotationZ;
+    private float $rotationZ;
 
     /**
      * @var float The scale factor value in parts-per-million.
      */
-    private $scaleFactor;
+    private float $scaleFactor;
 
     /**
      * Constructor.
@@ -63,13 +63,13 @@ class HelmertTransform
      * @param float $scaleFactor The scale factor value in parts-per-million.
      */
     public function __construct(
-        $translationX,
-        $translationY,
-        $translationZ,
-        $rotationX,
-        $rotationY,
-        $rotationZ,
-        $scaleFactor
+        float $translationX,
+        float $translationY,
+        float $translationZ,
+        float $rotationX,
+        float $rotationY,
+        float $rotationZ,
+        float $scaleFactor
     ) {
         $this->translationX = $translationX;
         $this->translationY = $translationY;
@@ -87,7 +87,7 @@ class HelmertTransform
      *
      * @return CartesianCoordinate The transformed CartesianCoordinate.
      */
-    public function transform(CartesianCoordinate $coordinate)
+    public function transform(CartesianCoordinate $coordinate): CartesianCoordinate
     {
         $x = $coordinate->getX();
         $y = $coordinate->getY();
@@ -115,9 +115,9 @@ class HelmertTransform
     /**
      * Get the reverse of this transform, useful for performing transforms in the other direction.
      *
-     * @return HelmertTransform The reverse of this transform.
+     * @return static The reverse of this transform.
      */
-    public function getReverseHelmertTransform()
+    public function getReverseHelmertTransform(): self
     {
         return new HelmertTransform(
             -$this->translationX,
@@ -135,7 +135,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getTranslationX()
+    public function getTranslationX(): float
     {
         return $this->translationX;
     }
@@ -145,9 +145,9 @@ class HelmertTransform
      *
      * @param float $translationX The new value of the property.
      *
-     * @return HelmertTransform This object.
+     * @return static This object.
      */
-    public function setTranslationX($translationX)
+    public function setTranslationX(float $translationX): self
     {
         $this->translationX = $translationX;
 
@@ -159,7 +159,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getTranslationY()
+    public function getTranslationY(): float
     {
         return $this->translationY;
     }
@@ -169,9 +169,9 @@ class HelmertTransform
      *
      * @param float $translationY The new value of the property.
      *
-     * @return HelmertTransform This object.
+     * @return static This object.
      */
-    public function setTranslationY($translationY)
+    public function setTranslationY(float $translationY): self
     {
         $this->translationY = $translationY;
 
@@ -183,7 +183,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getTranslationZ()
+    public function getTranslationZ(): float
     {
         return $this->translationZ;
     }
@@ -193,9 +193,9 @@ class HelmertTransform
      *
      * @param float $translationZ The new value of the property.
      *
-     * @return HelmertTransform This object.
+     * @return static This object.
      */
-    public function setTranslationZ($translationZ)
+    public function setTranslationZ(float $translationZ): self
     {
         $this->translationZ = $translationZ;
 
@@ -207,7 +207,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getRotationX()
+    public function getRotationX(): float
     {
         return $this->rotationX;
     }
@@ -217,7 +217,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getRotationXRadians()
+    public function getRotationXRadians(): float
     {
         return deg2rad($this->rotationX / self::ARCSECONDS_PER_DEGREE);
     }
@@ -227,9 +227,9 @@ class HelmertTransform
      *
      * @param float $rotationX The new value of the property.
      *
-     * @return HelmertTransform This object.
+     * @return static This object.
      */
-    public function setRotationX($rotationX)
+    public function setRotationX(float $rotationX): self
     {
         $this->rotationX = $rotationX;
 
@@ -241,7 +241,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getRotationY()
+    public function getRotationY(): float
     {
         return $this->rotationY;
     }
@@ -251,7 +251,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getRotationYRadians()
+    public function getRotationYRadians(): float
     {
         return deg2rad($this->rotationY / self::ARCSECONDS_PER_DEGREE);
     }
@@ -261,9 +261,9 @@ class HelmertTransform
      *
      * @param float $rotationY The new value of the property.
      *
-     * @return HelmertTransform This object.
+     * @return static This object.
      */
-    public function setRotationY($rotationY)
+    public function setRotationY(float $rotationY): self
     {
         $this->rotationY = $rotationY;
 
@@ -275,7 +275,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getRotationZ()
+    public function getRotationZ(): float
     {
         return $this->rotationZ;
     }
@@ -285,7 +285,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getRotationZRadians()
+    public function getRotationZRadians(): float
     {
         return deg2rad($this->rotationZ / self::ARCSECONDS_PER_DEGREE);
     }
@@ -295,9 +295,9 @@ class HelmertTransform
      *
      * @param float $rotationZ The new value of the property.
      *
-     * @return HelmertTransform This object.
+     * @return static This object.
      */
-    public function setRotationZ($rotationZ)
+    public function setRotationZ($rotationZ): self
     {
         $this->rotationZ = $rotationZ;
 
@@ -309,7 +309,7 @@ class HelmertTransform
      *
      * @return float The value of the property.
      */
-    public function getScaleFactor()
+    public function getScaleFactor(): float
     {
         return $this->scaleFactor;
     }
@@ -319,9 +319,9 @@ class HelmertTransform
      *
      * @param float $scaleFactor The new value of the property.
      *
-     * @return HelmertTransform This object.
+     * @return static This object.
      */
-    public function setScaleFactor($scaleFactor)
+    public function setScaleFactor(float $scaleFactor): self
     {
         $this->scaleFactor = $scaleFactor;
 

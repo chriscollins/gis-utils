@@ -61,7 +61,7 @@ class DatumTest extends AbstractTestCase
         $this->instance = new Datum(self::WGS84_NAME, $this->ellipsoid);
     }
 
-    public function testConstructorSetsExpectedPropertyValues()
+    public function testConstructorSetsExpectedPropertyValues(): void
     {
         $this->assertEquals(self::WGS84_NAME, $this->instance->getName());
         $this->assertEquals($this->ellipsoid, $this->instance->getEllipsoid());
@@ -75,7 +75,7 @@ class DatumTest extends AbstractTestCase
      *
      * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue)
+    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
         $ucfirstPropertyName = ucfirst($propertyName);
 
@@ -109,7 +109,7 @@ class DatumTest extends AbstractTestCase
         );
     }
 
-    public function testGetToWgs84HelmertTransformReturnsReversedHelmertTransform()
+    public function testGetToWgs84HelmertTransformReturnsReversedHelmertTransform(): void
     {
         $helmertTransformFactory = new HelmertTransformFactory();
         $helmertTransform = $helmertTransformFactory->createTransformFromBaseToDatum(DatumFactory::DATUM_OSGB36);
@@ -122,7 +122,7 @@ class DatumTest extends AbstractTestCase
         );
     }
 
-    public function testToStringMethodReturnsExpectedResult()
+    public function testToStringMethodReturnsExpectedResult(): void
     {
         $this->assertEquals($this->instance->getName(), $this->instance->toString());
     }

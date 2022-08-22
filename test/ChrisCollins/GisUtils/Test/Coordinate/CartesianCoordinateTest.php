@@ -34,7 +34,7 @@ class CartesianCoordinateTest extends AbstractTestCase
         $this->instance = new CartesianCoordinate(123.4, 456.7, 789.1, $this->datumFactory->createDefault());
     }
 
-    public function testConstructorSetsExpectedPropertyValues()
+    public function testConstructorSetsExpectedPropertyValues(): void
     {
         $x = 123.4;
         $y = 456.7;
@@ -57,7 +57,7 @@ class CartesianCoordinateTest extends AbstractTestCase
      *
      * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue)
+    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
         $ucfirstPropertyName = ucfirst($propertyName);
 
@@ -89,7 +89,7 @@ class CartesianCoordinateTest extends AbstractTestCase
         );
     }
 
-    public function testToLatLongReturnsExpectedResult()
+    public function testToLatLongReturnsExpectedResult(): void
     {
         $datum = $this->datumFactory->create(DatumFactory::DATUM_OSGB36);
         $this->instance = new CartesianCoordinate(3874938.8795, 116218.5175, 5047168.1878, $datum);
@@ -104,7 +104,7 @@ class CartesianCoordinateTest extends AbstractTestCase
         $this->assertEquals($datum, $latLong->getDatum());
     }
 
-    public function testToStringMethodReturnsExpectedResult()
+    public function testToStringMethodReturnsExpectedResult(): void
     {
         $x = 123.4;
         $y = 456.7;

@@ -40,7 +40,7 @@ abstract class AbstractFactory
      *
      * @return Object An Object.
      */
-    abstract protected function createFromData($name, array $data);
+    abstract protected function createFromData(string $name, array $data): object;
 
     /**
      * Get the data required for creating an object.

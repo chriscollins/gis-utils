@@ -44,7 +44,7 @@ class EllipsoidFactory extends AbstractFactory
     /**
      * {@inheritdoc}
      */
-    protected function createFromData($name, array $data)
+    protected function createFromData(string $name, array $data): Ellipsoid
     {
         return new Ellipsoid(
             $name,
@@ -59,7 +59,7 @@ class EllipsoidFactory extends AbstractFactory
      *
      * @return Ellipsoid An Ellipsoid.
      */
-    public function createDefault()
+    public function createDefault(): Ellipsoid
     {
         return $this->create(self::ELLIPSOID_WGS84);
     }

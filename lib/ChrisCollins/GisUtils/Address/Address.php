@@ -10,63 +10,57 @@ namespace ChrisCollins\GisUtils\Address;
 class Address implements AddressInterface
 {
     /**
-     * @var string The house number.
+     * @var string|null The house number.
      */
-    private $houseNumber;
+    private ?string $houseNumber = null;
 
     /**
-     * @var string The house name.
+     * @var string|null The house name.
      */
-    private $houseName;
+    private ?string $houseName = null;
 
     /**
-     * @var string The first line of the address.
+     * @var string|null The first line of the address.
      */
-    private $address1;
+    private ?string $address1 = null;
 
     /**
-     * @var string The second line of the address.
+     * @var string|null The second line of the address.
      */
-    private $address2;
+    private ?string $address2 = null;
 
     /**
-     * @var string The town.
+     * @var string|null The town.
      */
-    private $town;
+    private ?string $town = null;
 
     /**
-     * @var string The county.
+     * @var string|null The county.
      */
-    private $county;
+    private ?string $county = null;
 
     /**
-     * @var string The country.
+     * @var string|null The country.
      */
-    private $country;
+    private ?string $country = null;
 
     /**
-     * @var string The postcode.
+     * @var string|null The postcode.
      */
-    private $postcode;
+    private ?string $postcode = null;
 
     /**
-     * Accessor method.
-     *
-     * @return string The value of the property.
+     * {@inheritDoc}
      */
-    public function getHouseNumber()
+    public function getHouseNumber(): string
     {
         return $this->houseNumber;
     }
 
     /**
-     * Mutator method.
-     *
-     * @param string $houseNumber The new value of the property.
-     *
-     * @return Address This object.
+     * {@inheritDoc}
      */
-    public function setHouseNumber($houseNumber)
+    public function setHouseNumber(?string $houseNumber): self
     {
         $this->houseNumber = $houseNumber;
 
@@ -74,23 +68,17 @@ class Address implements AddressInterface
     }
 
     /**
-     * Accessor method.
-     *
-     * @return string The value of the property.
+     * {@inheritDoc}
      */
-    public function getHouseName()
+    public function getHouseName(): string
     {
         return $this->houseName;
     }
 
     /**
-     * Mutator method.
-     *
-     * @param string $houseNumber The new value of the property.
-     *
-     * @return Address This object.
+     * {@inheritDoc}
      */
-    public function setHouseName($houseName)
+    public function setHouseName(?string $houseName): self
     {
         $this->houseName = $houseName;
 
@@ -98,23 +86,17 @@ class Address implements AddressInterface
     }
 
     /**
-     * Accessor method.
-     *
-     * @return string The value of the property.
+     * {@inheritDoc}
      */
-    public function getAddress1()
+    public function getAddress1(): string
     {
         return $this->address1;
     }
 
     /**
-     * Mutator method.
-     *
-     * @param string $houseNumber The new value of the property.
-     *
-     * @return Address This object.
+     * {@inheritDoc}
      */
-    public function setAddress1($address1)
+    public function setAddress1(?string $address1): self
     {
         $this->address1 = $address1;
 
@@ -122,23 +104,17 @@ class Address implements AddressInterface
     }
 
     /**
-     * Accessor method.
-     *
-     * @return string The value of the property.
+     * {@inheritDoc}
      */
-    public function getAddress2()
+    public function getAddress2(): string
     {
         return $this->address2;
     }
 
     /**
-     * Mutator method.
-     *
-     * @param string $houseNumber The new value of the property.
-     *
-     * @return Address This object.
+     * {@inheritDoc}
      */
-    public function setAddress2($address2)
+    public function setAddress2(?string $address2): self
     {
         $this->address2 = $address2;
 
@@ -146,23 +122,17 @@ class Address implements AddressInterface
     }
 
     /**
-     * Accessor method.
-     *
-     * @return string The value of the property.
+     * {@inheritDoc}
      */
-    public function getTown()
+    public function getTown(): string
     {
         return $this->town;
     }
 
     /**
-     * Mutator method.
-     *
-     * @param string $houseNumber The new value of the property.
-     *
-     * @return Address This object.
+     * {@inheritDoc}
      */
-    public function setTown($town)
+    public function setTown(?string $town): self
     {
         $this->town = $town;
 
@@ -170,23 +140,17 @@ class Address implements AddressInterface
     }
 
     /**
-     * Accessor method.
-     *
-     * @return string The value of the property.
+     * {@inheritDoc}
      */
-    public function getCounty()
+    public function getCounty(): string
     {
         return $this->county;
     }
 
     /**
-     * Mutator method.
-     *
-     * @param string $houseNumber The new value of the property.
-     *
-     * @return Address This object.
+     * {@inheritDoc}
      */
-    public function setCounty($county)
+    public function setCounty(?string $county): self
     {
         $this->county = $county;
 
@@ -194,23 +158,17 @@ class Address implements AddressInterface
     }
 
     /**
-     * Accessor method.
-     *
-     * @return string The value of the property.
+     * {@inheritDoc}
      */
-    public function getCountry()
+    public function getCountry(): string
     {
         return $this->country;
     }
 
     /**
-     * Mutator method.
-     *
-     * @param string $houseNumber The new value of the property.
-     *
-     * @return Address This object.
+     * {@inheritDoc}
      */
-    public function setCountry($country)
+    public function setCountry(?string $country): self
     {
         $this->country = $country;
 
@@ -218,23 +176,17 @@ class Address implements AddressInterface
     }
 
     /**
-     * Accessor method.
-     *
-     * @return string The value of the property.
+     * {@inheritDoc}
      */
-    public function getPostcode()
+    public function getPostcode(): string
     {
         return $this->postcode;
     }
 
     /**
-     * Mutator method.
-     *
-     * @param string $houseNumber The new value of the property.
-     *
-     * @return Address This object.
+     * {@inheritDoc}
      */
-    public function setPostcode($postcode)
+    public function setPostcode(?string $postcode): self
     {
         $this->postcode = $postcode;
 
@@ -246,7 +198,7 @@ class Address implements AddressInterface
      *
      * @return string A string representation of the object.
      */
-    public function toString()
+    public function toString(): string
     {
         $string = '';
 

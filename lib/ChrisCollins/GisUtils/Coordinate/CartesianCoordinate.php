@@ -14,22 +14,22 @@ class CartesianCoordinate
     /**
      * @var float The X coordinate.
      */
-    private $x;
+    private float $x;
 
     /**
      * @var float The Y coordinate.
      */
-    private $y;
+    private float $y;
 
     /**
      * @var float The Z coordinate.
      */
-    private $z;
+    private float $z;
 
     /**
      * @var Datum The datum that the coordinate uses.
      */
-    private $datum;
+    private Datum $datum;
 
     /**
      * Constructor.
@@ -39,7 +39,7 @@ class CartesianCoordinate
      * @param float $z The Z coordinate.
      * @param Datum $datum The datum that the coordinate uses.
      */
-    public function __construct($x, $y, $z, Datum $datum)
+    public function __construct(float $x, float $y, float $z, Datum $datum)
     {
         $this->x = $x;
         $this->y = $y;
@@ -52,7 +52,7 @@ class CartesianCoordinate
      *
      * @return float The value of the property.
      */
-    public function getX()
+    public function getX(): float
     {
         return $this->x;
     }
@@ -64,7 +64,7 @@ class CartesianCoordinate
      *
      * @return CartesianCoordinate This object.
      */
-    public function setX($x)
+    public function setX(float $x)
     {
         $this->x = $x;
 
@@ -76,7 +76,7 @@ class CartesianCoordinate
      *
      * @return float The value of the property.
      */
-    public function getY()
+    public function getY(): float
     {
         return $this->y;
     }
@@ -88,7 +88,7 @@ class CartesianCoordinate
      *
      * @return CartesianCoordinate This object.
      */
-    public function setY($y)
+    public function setY(float $y)
     {
         $this->y = $y;
 
@@ -100,7 +100,7 @@ class CartesianCoordinate
      *
      * @return float The value of the property.
      */
-    public function getZ()
+    public function getZ(): float
     {
         return $this->z;
     }
@@ -112,7 +112,7 @@ class CartesianCoordinate
      *
      * @return CartesianCoordinate This object.
      */
-    public function setZ($z)
+    public function setZ(float $z)
     {
         $this->z = $z;
 
@@ -124,7 +124,7 @@ class CartesianCoordinate
      *
      * @return Datum The value of the property.
      */
-    public function getDatum()
+    public function getDatum(): Datum
     {
         return $this->datum;
     }
@@ -148,7 +148,7 @@ class CartesianCoordinate
      *
      * @return LatLong A LatLong representation of this coordinate.
      */
-    public function toLatLong()
+    public function toLatLong(): LatLong
     {
         $semiMajorAxis = $this->datum->getEllipsoid()
             ->getSemiMajorAxisMetres();
@@ -188,7 +188,7 @@ class CartesianCoordinate
      *
      * @return string A string representation of the object.
      */
-    public function toString()
+    public function toString(): string
     {
         return $this->x . ', ' . $this->y . ', ' . $this->z;
     }

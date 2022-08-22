@@ -31,7 +31,7 @@ class AddressTest extends AbstractTestCase
      *
      * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue)
+    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
         $ucfirstPropertyName = ucfirst($propertyName);
 
@@ -65,7 +65,7 @@ class AddressTest extends AbstractTestCase
         );
     }
 
-    public function testToStringMethodReturnsExpectedResult()
+    public function testToStringMethodReturnsExpectedResult(): void
     {
         $address = $this->getTestAddress();
 
@@ -74,7 +74,7 @@ class AddressTest extends AbstractTestCase
         $this->assertEquals($expected, $address->toString());
     }
 
-    public function testToStringMethodOverridesHouseNumberWithName()
+    public function testToStringMethodOverridesHouseNumberWithName(): void
     {
         $address = $this->getTestAddress();
         $address->setHouseName('Test House');

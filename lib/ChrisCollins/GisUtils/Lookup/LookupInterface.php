@@ -3,6 +3,7 @@
 namespace ChrisCollins\GisUtils\Lookup;
 
 use ChrisCollins\GisUtils\Address\AddressInterface;
+use ChrisCollins\GisUtils\Coordinate\LatLong;
 
 /**
  * LookupInterface
@@ -20,5 +21,5 @@ interface LookupInterface
      *
      * @throws AddressNotFoundException If the address is not found.
      */
-    public function addressToLatLong(AddressInterface $address);
+    public function addressToLatLong(AddressInterface $address): LatLong;
 }

@@ -40,7 +40,7 @@ class LatLongTest extends AbstractTestCase
         $this->instance = $this->latLongsFixture->getLatLongPenYFan();
     }
 
-    public function testConstructorSetsPropertyValues()
+    public function testConstructorSetsPropertyValues(): void
     {
         $lat = 51.88328;
         $long = -3.43684;
@@ -63,7 +63,7 @@ class LatLongTest extends AbstractTestCase
      *
      * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue)
+    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
         $ucfirstPropertyName = ucfirst($propertyName);
 
@@ -95,12 +95,12 @@ class LatLongTest extends AbstractTestCase
         );
     }
 
-    public function testGetLatitudeRadiansConvertsLatitudeToRadians()
+    public function testGetLatitudeRadiansConvertsLatitudeToRadians(): void
     {
         $this->assertEquals(deg2rad($this->instance->getLatitude()), $this->instance->getLatitudeRadians());
     }
 
-    public function testSetLatitudeRadiansConvertsToDegreesAndSetsLatitude()
+    public function testSetLatitudeRadiansConvertsToDegreesAndSetsLatitude(): void
     {
         $radians = 0.89852459356531;
         $originalLatitude = $this->instance->getLatitude();
@@ -110,12 +110,12 @@ class LatLongTest extends AbstractTestCase
         $this->assertNotEquals($originalLatitude, $this->instance->getLatitude());
     }
 
-    public function testGetLongitudeRadiansConvertsLongitudeToRadians()
+    public function testGetLongitudeRadiansConvertsLongitudeToRadians(): void
     {
         $this->assertEquals(deg2rad($this->instance->getLongitude()), $this->instance->getLongitudeRadians());
     }
 
-    public function testSetLongitudeRadiansConvertsToDegreesAndSetsLongitude()
+    public function testSetLongitudeRadiansConvertsToDegreesAndSetsLongitude(): void
     {
         $radians = -3.182155;
         $originalLongitude = $this->instance->getLongitude();
@@ -144,7 +144,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertEqualsWithinPercentageTolerance($expectedMetres, $actualMetres, $tolerance);
     }
 
-    public function testCalculateDistanceThrowsExceptionIfDatumDiffersFromDestinationDatum()
+    public function testCalculateDistanceThrowsExceptionIfDatumDiffersFromDestinationDatum(): void
     {
         $exceptionThrown = false;
 
@@ -160,7 +160,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertTrue($exceptionThrown);
     }
 
-    public function testCalculateDistanceReturnsZeroForIdenticalPoints()
+    public function testCalculateDistanceReturnsZeroForIdenticalPoints(): void
     {
         $latLong1 = $this->latLongsFixture->getLatLongCardiffCastle();
         $latLong2 = $this->latLongsFixture->getLatLongCardiffCastle();
@@ -187,7 +187,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertEqualsWithinTolerance($expectedMetres, $actualMetres, $tolerance);
     }
 
-    public function testCalculateDistanceVincentyThrowsExceptionIfDatumDiffersFromDestinationDatum()
+    public function testCalculateDistanceVincentyThrowsExceptionIfDatumDiffersFromDestinationDatum(): void
     {
         $exceptionThrown = false;
 
@@ -203,7 +203,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertTrue($exceptionThrown);
     }
 
-    public function testCalculateDistanceVincentyReturnsZeroForIdenticalPoints()
+    public function testCalculateDistanceVincentyReturnsZeroForIdenticalPoints(): void
     {
         $latLong1 = $this->latLongsFixture->getLatLongCardiffCastle();
         $latLong2 = $this->latLongsFixture->getLatLongCardiffCastle();
@@ -258,7 +258,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertEquals($expected->getDatum(), $actual->getDatum());
     }
 
-    public function testToCartesianCoordinateReturnsExpectedResult()
+    public function testToCartesianCoordinateReturnsExpectedResult(): void
     {
         $this->instance = new LatLong(52.65757, 1.71792, 24.7, $this->datumFactory->create(DatumFactory::DATUM_OSGB36));
 
@@ -271,7 +271,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertEqualsWhenRounded(5047168.18777, $cartesianCoordinate->getZ(), $significantFigures);
     }
 
-    public function testToLatLongInDatumReturnsCloneOfSelfIfAlreadyInTargetDatum()
+    public function testToLatLongInDatumReturnsCloneOfSelfIfAlreadyInTargetDatum(): void
     {
         $converted = $this->instance->toLatLongInDatum($this->datumFactory->createDefault());
 
@@ -279,7 +279,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertFalse($converted === $this->instance); // Not the same object.
     }
 
-    public function testToLatLongInDatumReturnsConvertedLatLongIfNotAlreadyInTargetDatum()
+    public function testToLatLongInDatumReturnsConvertedLatLongIfNotAlreadyInTargetDatum(): void
     {
         $targetDatum = $this->datumFactory->create(DatumFactory::DATUM_OSGB36);
 
@@ -289,7 +289,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertEquals($targetDatum, $converted->getDatum());
     }
 
-    public function testToLatLongInDatumConvertsToBaseDatumThenConvertsToTargetDatumIfNotAlreadyInBaseDatum()
+    public function testToLatLongInDatumConvertsToBaseDatumThenConvertsToTargetDatumIfNotAlreadyInBaseDatum(): void
     {
         $this->instance->setDatum($this->datumFactory->create(DatumFactory::DATUM_ED50));
 
@@ -301,7 +301,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertEquals($targetDatum, $converted->getDatum());
     }
 
-    public function testToLatLongInDatumReturnsInitialValuesAfterBidirectionalTransform()
+    public function testToLatLongInDatumReturnsInitialValuesAfterBidirectionalTransform(): void
     {
         // WGS84 -> OSGB36 -> WGS84.
         $wgs84Datum = $this->datumFactory->create(DatumFactory::DATUM_WGS84);
@@ -325,7 +325,7 @@ class LatLongTest extends AbstractTestCase
         $this->assertEquals($this->instance->getDatum(), $wgs84LatLong->getDatum());
     }
 
-    public function testToStringMethodReturnsExpectedResult()
+    public function testToStringMethodReturnsExpectedResult(): void
     {
         $expected = $this->instance->getLatitude() . ', ' . $this->instance->getLongitude();
 

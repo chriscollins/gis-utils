@@ -12,135 +12,135 @@ interface AddressInterface
     /**
      * Accessor method.
      *
-     * @return string The value of the property.
+     * @return string|null The value of the property.
      */
-    public function getHouseNumber();
+    public function getHouseNumber(): ?string;
 
     /**
      * Mutator method.
      *
      * @param string $houseNumber The new value of the property.
      *
-     * @return Address This object.
+     * @return static This object.
      */
-    public function setHouseNumber($houseNumber);
+    public function setHouseNumber(?string $houseNumber): AddressInterface;
 
     /**
      * Accessor method.
      *
-     * @return string The value of the property.
+     * @return string|null The value of the property.
      */
-    public function getHouseName();
+    public function getHouseName(): ?string;
 
     /**
      * Mutator method.
      *
      * @param string $houseNumber The new value of the property.
      *
-     * @return Address This object.
+     * @return static This object.
      */
-    public function setHouseName($houseName);
+    public function setHouseName(?string $houseName): AddressInterface;
 
     /**
      * Accessor method.
      *
-     * @return string The value of the property.
+     * @return string|null The value of the property.
      */
-    public function getAddress1();
+    public function getAddress1(): ?string;
 
     /**
      * Mutator method.
      *
      * @param string $houseNumber The new value of the property.
      *
-     * @return Address This object.
+     * @return static This object.
      */
-    public function setAddress1($address1);
+    public function setAddress1(?string $address1): AddressInterface;
 
     /**
      * Accessor method.
      *
-     * @return string The value of the property.
+     * @return string|null The value of the property.
      */
-    public function getAddress2();
+    public function getAddress2(): ?string;
 
     /**
      * Mutator method.
      *
      * @param string $houseNumber The new value of the property.
      *
-     * @return Address This object.
+     * @return static This object.
      */
-    public function setAddress2($address2);
+    public function setAddress2(?string $address2): AddressInterface;
 
     /**
      * Accessor method.
      *
-     * @return string The value of the property.
+     * @return string|null The value of the property.
      */
-    public function getTown();
+    public function getTown(): ?string;
 
     /**
      * Mutator method.
      *
      * @param string $houseNumber The new value of the property.
      *
-     * @return Address This object.
+     * @return static This object.
      */
-    public function setTown($town);
+    public function setTown(?string $town): AddressInterface;
 
     /**
      * Accessor method.
      *
-     * @return string The value of the property.
+     * @return string|null The value of the property.
      */
-    public function getCounty();
+    public function getCounty(): ?string;
 
     /**
      * Mutator method.
      *
      * @param string $houseNumber The new value of the property.
      *
-     * @return Address This object.
+     * @return static This object.
      */
-    public function setCounty($county);
+    public function setCounty(?string $county): AddressInterface;
 
     /**
      * Accessor method.
      *
-     * @return string The value of the property.
+     * @return string|null The value of the property.
      */
-    public function getCountry();
+    public function getCountry(): ?string;
 
     /**
      * Mutator method.
      *
      * @param string $houseNumber The new value of the property.
      *
-     * @return Address This object.
+     * @return static This object.
      */
-    public function setCountry($country);
+    public function setCountry(?string $country): AddressInterface;
 
     /**
      * Accessor method.
      *
-     * @return string The value of the property.
+     * @return string|null The value of the property.
      */
-    public function getPostcode();
+    public function getPostcode(): ?string;
 
     /**
      * Mutator method.
      *
      * @param string $houseNumber The new value of the property.
      *
-     * @return Address This object.
+     * @return static This object.
      */
-    public function setPostcode($postcode);
+    public function setPostcode(?string $postcode): AddressInterface;
 
     /**
      * Get a string representation of the object.
      *
-     * @return string A string representation of the object.
+     * @return string|null A string representation of the object.
      */
-    public function toString();
+    public function toString(): ?string;
 }

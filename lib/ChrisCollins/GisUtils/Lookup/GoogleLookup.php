@@ -7,6 +7,7 @@ use ChrisCollins\GisUtils\Datum\DatumFactory;
 use ChrisCollins\GisUtils\Address\AddressInterface;
 use ChrisCollins\GeneralUtils\Json\JsonCodec;
 use ChrisCollins\GeneralUtils\Curl\CurlHandle;
+use ChrisCollins\GisUtils\Address\Address;
 use ChrisCollins\GisUtils\Exception\GoogleGeocoderException;
 use ChrisCollins\GisUtils\Exception\AddressNotFoundException;
 
@@ -33,22 +34,22 @@ class GoogleLookup implements LookupInterface
     /**
      * @var DatumFactory The DatumFactory to use when creating LatLongs.
      */
-    private $datumFactory;
+    private DatumFactory $datumFactory;
 
     /**
      * @var CurlHandle The CurlHandle to use when making requests.
      */
-    private $curlHandle;
+    private CurlHandle $curlHandle;
 
     /**
      * @var JsonCodec The JsonCodec to use to decode JSON responses.
      */
-    private $jsonCodec;
+    private JsonCodec $jsonCodec;
 
     /**
-     * @var boolean Whether or not HTTPS requests should be made.
+     * @var bool Whether or not HTTPS requests should be made.
      */
-    private $useHttps;
+    private bool $useHttps = true;
 
     /**
      * Constructor.
@@ -75,7 +76,7 @@ class GoogleLookup implements LookupInterface
      * @throws GoogleGeocoderException If there was an issue with the Google Geocoder service.
      * @throws JsonException If there was an issue with the format of the JSON.
      */
-    public function addressToLatLong(AddressInterface $address)
+    public function addressToLatLong(AddressInterface $address): LatLong
     {
         $url = $this->getServiceUrl($address);
         $json = $this->makeRequest($url);
@@ -93,7 +94,7 @@ class GoogleLookup implements LookupInterface
      * @throws AddressNotFoundException If the address was not found.
      * @throws JsonException If the JSON was unable to be decoded.
      */
-    protected function parseServiceResponse($json)
+    private function parseServiceResponse(string $json): LatLong
     {
         $decoded = $this->jsonCodec->decode($json, true);
 
@@ -126,7 +127,7 @@ class GoogleLookup implements LookupInterface
      *
      * @return string The response JSON.
      */
-    protected function makeRequest($url)
+    private function makeRequest(string $url): string
     {
         $this->curlHandle->initialise($url);
         $responseContent = $this->curlHandle->execute();
@@ -147,7 +148,7 @@ class GoogleLookup implements LookupInterface
      *
      * @return string The service URL.
      */
-    protected function getServiceUrl($address)
+    private function getServiceUrl(Address $address): string
     {
         $query = http_build_query(
             [
@@ -162,9 +163,9 @@ class GoogleLookup implements LookupInterface
     /**
      * Accessor method.
      *
-     * @return boolean The value of the property.
+     * @return bool The value of the property.
      */
-    public function getUseHttps()
+    public function getUseHttps(): bool
     {
         return $this->useHttps;
     }
@@ -172,11 +173,11 @@ class GoogleLookup implements LookupInterface
     /**
      * Mutator method.
      *
-     * @param boolean $useHttps The value of the property.
+     * @param bool $useHttps The value of the property.
      *
-     * @return Google This object.
+     * @return static This object.
      */
-    public function setUseHttps($useHttps)
+    public function setUseHttps(bool $useHttps): self
     {
         $this->useHttps = $useHttps;
 

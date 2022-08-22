@@ -21,22 +21,22 @@ class LatLong
     /**
      * @var float The latitude in decimal degrees.
      */
-    private $latitude;
+    private float $latitude;
 
     /**
      * @var float The longitude in decimal degrees.
      */
-    private $longitude;
+    private float $longitude;
 
     /**
-     * @var float The height in metres.
+     * @var float|null The height in metres.
      */
-    private $height;
+    private ?float $height;
 
     /**
      * @var Datum The datum.
      */
-    private $datum;
+    private Datum $datum;
 
     /**
      * Constructor.
@@ -45,10 +45,15 @@ class LatLong
      * @param float $longitude The longitude.
      * @param float $height The height.
      * @param Datum $datum The datum.
-     * @param boolean $asRadians If true, the input latitude and longitude are treated as radians, not decimal degrees.
+     * @param bool $asRadians If true, the input latitude and longitude are treated as radians, not decimal degrees.
      */
-    public function __construct($latitude, $longitude, $height, Datum $datum, $asRadians = false)
-    {
+    public function __construct(
+        float $latitude,
+        float $longitude,
+        ?float $height,
+        Datum $datum,
+        bool $asRadians = false
+    ) {
         if ($asRadians) {
             $this->setLatitudeRadians($latitude);
             $this->setLongitudeRadians($longitude);
@@ -66,7 +71,7 @@ class LatLong
      *
      * @return float The value of the property.
      */
-    public function getLatitude()
+    public function getLatitude(): float
     {
         return $this->latitude;
     }
@@ -78,7 +83,7 @@ class LatLong
      *
      * @return LatLong This object.
      */
-    public function setLatitude($latitude)
+    public function setLatitude(float $latitude)
     {
         $this->latitude = $latitude;
 
@@ -90,7 +95,7 @@ class LatLong
      *
      * @return float The value of the property.
      */
-    public function getLatitudeRadians()
+    public function getLatitudeRadians(): float
     {
         return deg2rad($this->latitude);
     }
@@ -102,7 +107,7 @@ class LatLong
      *
      * @return LatLong This object.
      */
-    public function setLatitudeRadians($latitudeRadians)
+    public function setLatitudeRadians(float $latitudeRadians)
     {
         $this->latitude = rad2deg($latitudeRadians);
 
@@ -114,7 +119,7 @@ class LatLong
      *
      * @return float The value of the property.
      */
-    public function getLongitude()
+    public function getLongitude(): float
     {
         return $this->longitude;
     }
@@ -126,7 +131,7 @@ class LatLong
      *
      * @return LatLong This object.
      */
-    public function setLongitude($longitude)
+    public function setLongitude(float $longitude)
     {
         $this->longitude = $longitude;
 
@@ -138,7 +143,7 @@ class LatLong
      *
      * @return float The value of the property.
      */
-    public function getLongitudeRadians()
+    public function getLongitudeRadians(): float
     {
         return deg2rad($this->longitude);
     }
@@ -150,7 +155,7 @@ class LatLong
      *
      * @return LatLong This object.
      */
-    public function setLongitudeRadians($longitudeRadians)
+    public function setLongitudeRadians(float $longitudeRadians)
     {
         $this->longitude = rad2deg($longitudeRadians);
 
@@ -160,9 +165,9 @@ class LatLong
     /**
      * Accessor method.
      *
-     * @return float The value of the property.
+     * @return float|null The value of the property.
      */
-    public function getHeight()
+    public function getHeight(): ?float
     {
         return $this->height;
     }
@@ -170,11 +175,11 @@ class LatLong
     /**
      * Mutator method.
      *
-     * @param float $height The new value of the property.
+     * @param float|null $height The new value of the property.
      *
      * @return LatLong This object.
      */
-    public function setHeight($height)
+    public function setHeight(?float $height)
     {
         $this->height = $height;
 
@@ -186,7 +191,7 @@ class LatLong
      *
      * @return Datum The value of the property.
      */
-    public function getDatum()
+    public function getDatum(): Datum
     {
         return $this->datum;
     }
@@ -217,7 +222,7 @@ class LatLong
      *
      * @throws InvalidArgumentException If the datum of this object does not match that of the $destination LatLong.
      */
-    public function calculateDistance(LatLong $destination)
+    public function calculateDistance(LatLong $destination): float
     {
         if ($destination->getDatum() != $this->datum) {
             throw new InvalidArgumentException('Datums must match to calculate distance.');
@@ -256,7 +261,7 @@ class LatLong
      *
      * @throws InvalidArgumentException If the datum of this object does not match that of the $destination LatLong.
      */
-    public function calculateDistanceVincenty(LatLong $destination)
+    public function calculateDistanceVincenty(LatLong $destination): float
     {
         if ($destination->getDatum() != $this->datum) {
             throw new InvalidArgumentException('Datums must match to calculate distance.');
@@ -338,7 +343,7 @@ class LatLong
      *
      * @return float The bearing in decimal degrees.
      */
-    public function calculateInitialBearing(LatLong $destination)
+    public function calculateInitialBearing(LatLong $destination): float
     {
         $latRad = $this->getLatitudeRadians();
         $destLatRad = $destination->getLatitudeRadians();
@@ -360,7 +365,7 @@ class LatLong
      *
      * @return float The bearing in decimal degrees.
      */
-    public function calculateFinalBearing(LatLong $destination)
+    public function calculateFinalBearing(LatLong $destination): float
     {
         $initialBearing = $destination->calculateInitialBearing($this);
 
@@ -375,7 +380,7 @@ class LatLong
      *
      * @return LatLong The destination point.
      */
-    public function calculateDestinationForBearingAndDistance($bearing, $distance)
+    public function calculateDestinationForBearingAndDistance(float $bearing, float $distance): LatLong
     {
         // Note, we don't use a datum-specific radius here, as we are treating the Earth as a sphere, not an ellipsoid.
         $distRad = $distance / self::EARTH_MEAN_RADIUS_METRES;
@@ -411,7 +416,7 @@ class LatLong
      *
      * @return CartesianCoordinate A CartesianCoordinate with values appropriate to this LatLong and its Datum.
      */
-    public function toCartesianCoordinate()
+    public function toCartesianCoordinate(): CartesianCoordinate
     {
         $latRad = $this->getLatitudeRadians();
         $longRad = $this->getLongitudeRadians();
@@ -450,7 +455,7 @@ class LatLong
      *
      * @return LatLong A LatLong in the given datum with equivalent coordinates set.
      */
-    public function toLatLongInDatum(Datum $targetDatum)
+    public function toLatLongInDatum(Datum $targetDatum): LatLong
     {
         $converted = null;
 
@@ -485,7 +490,7 @@ class LatLong
      *
      * @return string A string representation of the object.
      */
-    public function toString()
+    public function toString(): string
     {
         return $this->latitude . ', ' . $this->longitude;
     }

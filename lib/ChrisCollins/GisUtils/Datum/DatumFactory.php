@@ -62,7 +62,7 @@ class DatumFactory extends AbstractFactory
     /**
      * {@inheritdoc}
      */
-    protected function createFromData($name, array $data)
+    protected function createFromData(string $name, array $data): Datum
     {
         $ellipsoid = $this->ellipsoidFactory->create($data['ellipsoid']);
 
@@ -80,7 +80,7 @@ class DatumFactory extends AbstractFactory
      *
      * @return Datum A Datum.
      */
-    public function createDefault()
+    public function createDefault(): Datum
     {
         return $this->create(self::DATUM_WGS84);
     }

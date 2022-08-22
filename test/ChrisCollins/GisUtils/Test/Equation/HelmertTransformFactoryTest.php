@@ -26,7 +26,7 @@ class HelmertTransformFactoryTest extends AbstractTestCase
         $this->instance = new HelmertTransformFactory();
     }
 
-    public function testCreateTransformFromBaseToDatumReturnsExpectedHelmertTransform()
+    public function testCreateTransformFromBaseToDatumReturnsExpectedHelmertTransform(): void
     {
         $expected = $this->getOSGB36ToBaseHelmertTransform();
         $actual = $this->instance->createTransformFromBaseToDatum(DatumFactory::DATUM_OSGB36);
@@ -34,7 +34,7 @@ class HelmertTransformFactoryTest extends AbstractTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testCreateTransformFromDatumToBaseReturnsExpectedHelmertTransform()
+    public function testCreateTransformFromDatumToBaseReturnsExpectedHelmertTransform(): void
     {
         $expected = $this->getOSGB36ToBaseHelmertTransform()
             ->getReverseHelmertTransform();
@@ -44,7 +44,7 @@ class HelmertTransformFactoryTest extends AbstractTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testCreateTransformFromBaseToDatumThrowsExceptionForUnknownDatum()
+    public function testCreateTransformFromBaseToDatumThrowsExceptionForUnknownDatum(): void
     {
         $exceptionThrown = false;
 
@@ -57,7 +57,7 @@ class HelmertTransformFactoryTest extends AbstractTestCase
         $this->assertTrue($exceptionThrown);
     }
 
-    public function testCreateTransformFromDatumToBaseThrowsExceptionForUnknownDatum()
+    public function testCreateTransformFromDatumToBaseThrowsExceptionForUnknownDatum(): void
     {
         $exceptionThrown = false;
 

@@ -54,7 +54,7 @@ class FacadeTest extends AbstractTestCase
             ->setPostcode('SW1A 2AA');
     }
 
-    public function testContainerReturnsServicesThatAreOfTheExpectedClasses()
+    public function testContainerReturnsServicesThatAreOfTheExpectedClasses(): void
     {
         $this->assertInstanceOf(
             'ChrisCollins\GisUtils\Datum\DatumFactory',
@@ -77,7 +77,7 @@ class FacadeTest extends AbstractTestCase
         );
     }
 
-    public function testGoogleAddressToLatLongReturnsExpectedValue()
+    public function testGoogleAddressToLatLongReturnsExpectedValue(): void
     {
         $mockCurlHandle = $this->getMockCurlHandleForJson('successSingleAddress.json');
 
@@ -91,7 +91,7 @@ class FacadeTest extends AbstractTestCase
         $this->assertEquals(-0.1275644, $latLong->getLongitude());
     }
 
-    public function testCreateDatumSetsExpectedPropertyValues()
+    public function testCreateDatumSetsExpectedPropertyValues(): void
     {
         $datum = $this->instance->createDatum(DatumFactory::DATUM_WGS84);
 
@@ -113,7 +113,7 @@ class FacadeTest extends AbstractTestCase
         $this->assertEquals(EllipsoidFactory::ELLIPSOID_AIRY_1830, $ellipsoid->getName());
     }
 
-    public function testCreateDefaultDatumCreatesWgs84Datum()
+    public function testCreateDefaultDatumCreatesWgs84Datum(): void
     {
         $datum = $this->instance->createDefaultDatum();
 
@@ -125,7 +125,7 @@ class FacadeTest extends AbstractTestCase
         $this->assertEquals(EllipsoidFactory::ELLIPSOID_WGS84, $ellipsoid->getName());
     }
 
-    public function testCreateEllipsoidSetsExpectedPropertyValues()
+    public function testCreateEllipsoidSetsExpectedPropertyValues(): void
     {
         $ellipsoid = $this->instance->createEllipsoid(EllipsoidFactory::ELLIPSOID_WGS84);
 
@@ -138,7 +138,7 @@ class FacadeTest extends AbstractTestCase
         $this->assertEquals(EllipsoidFactory::ELLIPSOID_AIRY_1830, $ellipsoid->getName());
     }
 
-    public function testCreateDefaultEllipsoidSetsExpectedPropertyValues()
+    public function testCreateDefaultEllipsoidSetsExpectedPropertyValues(): void
     {
         $ellipsoid = $this->instance->createDefaultEllipsoid();
 

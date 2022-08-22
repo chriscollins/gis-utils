@@ -15,17 +15,17 @@ class Datum
     /**
      * @var string The name of the datum (e.g. "WGS84").
      */
-    private $name;
+    private string $name;
 
     /**
      * @var Ellipsoid The ellipsoid that the datum uses.
      */
-    private $ellipsoid;
+    private Ellipsoid $ellipsoid;
 
     /**
      * @var HelmertTransform|null A HelmertTransform to convert to this datum from WGS84,.
      */
-    private $fromWgs84HelmertTransform;
+    private ?HelmertTransform $fromWgs84HelmertTransform;
 
     /**
      * Constructor.
@@ -34,7 +34,7 @@ class Datum
      * @param Ellipsoid $ellipsoid The ellipsoid that the datum uses.
      * @param HelmertTransform|null $fromWgs84HelmertTransform A HelmertTransform to convert to this datum from WGS84.
      */
-    public function __construct($name, Ellipsoid $ellipsoid, HelmertTransform $fromWgs84HelmertTransform = null)
+    public function __construct($name, Ellipsoid $ellipsoid, ?HelmertTransform $fromWgs84HelmertTransform = null)
     {
         $this->name = $name;
         $this->ellipsoid = $ellipsoid;
@@ -46,7 +46,7 @@ class Datum
      *
      * @return string The value of the property.
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -56,9 +56,9 @@ class Datum
      *
      * @param string $name The new value of the property.
      *
-     * @return Datum This object.
+     * @return static This object.
      */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -70,7 +70,7 @@ class Datum
      *
      * @return Ellipsoid The value of the property.
      */
-    public function getEllipsoid()
+    public function getEllipsoid(): Ellipsoid
     {
         return $this->ellipsoid;
     }
@@ -80,9 +80,9 @@ class Datum
      *
      * @param Ellipsoid $ellipsoid The new value of the property.
      *
-     * @return Datum This object.
+     * @return static This object.
      */
-    public function setEllipsoid(Ellipsoid $ellipsoid)
+    public function setEllipsoid(Ellipsoid $ellipsoid): self
     {
         $this->ellipsoid = $ellipsoid;
 
@@ -94,7 +94,7 @@ class Datum
      *
      * @return HelmertTransform|null The value of the property.
      */
-    public function getFromWgs84HelmertTransform()
+    public function getFromWgs84HelmertTransform(): ?HelmertTransform
     {
         return $this->fromWgs84HelmertTransform;
     }
@@ -104,7 +104,7 @@ class Datum
      *
      * @return HelmertTransform|null The HelmertTransform, or null if it could not be determined.
      */
-    public function getToWgs84HelmertTransform()
+    public function getToWgs84HelmertTransform(): ?HelmertTransform
     {
         $transform = null;
 
@@ -120,9 +120,9 @@ class Datum
      *
      * @param HelmertTransform $fromWgs84HelmertTransform The new value of the property.
      *
-     * @return Datum This object.
+     * @return static This object.
      */
-    public function setFromWgs84HelmertTransform(HelmertTransform $fromWgs84HelmertTransform)
+    public function setFromWgs84HelmertTransform(HelmertTransform $fromWgs84HelmertTransform): self
     {
         $this->fromWgs84HelmertTransform = $fromWgs84HelmertTransform;
 
@@ -134,7 +134,7 @@ class Datum
      *
      * @return string A string representation of the object.
      */
-    public function toString()
+    public function toString(): string
     {
         return $this->name;
     }

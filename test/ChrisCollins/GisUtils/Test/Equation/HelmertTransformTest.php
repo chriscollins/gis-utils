@@ -23,7 +23,7 @@ class HelmertTransformTest extends AbstractTestCase
         $this->instance = new HelmertTransform(-446.448, 125.157, -542.060, -0.1502, -0.2470, -0.8421, 20.4894);
     }
 
-    public function testConstructorSetsExpectedPropertyValues()
+    public function testConstructorSetsExpectedPropertyValues(): void
     {
         $this->assertEquals(-446.448, $this->instance->getTranslationX());
         $this->assertEquals(125.157, $this->instance->getTranslationY());
@@ -42,7 +42,7 @@ class HelmertTransformTest extends AbstractTestCase
      *
      * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue)
+    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
         $ucfirstPropertyName = ucfirst($propertyName);
 
@@ -75,7 +75,7 @@ class HelmertTransformTest extends AbstractTestCase
         );
     }
 
-    public function testGetReverseHelmertTransformNegatesEachProperty()
+    public function testGetReverseHelmertTransformNegatesEachProperty(): void
     {
         $reverseTransform = $this->instance->getReverseHelmertTransform();
 

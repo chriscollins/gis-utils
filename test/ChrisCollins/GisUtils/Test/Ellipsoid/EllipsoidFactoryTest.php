@@ -56,7 +56,7 @@ class EllipsoidFactoryTest extends AbstractTestCase
         $this->instance = new EllipsoidFactory();
     }
 
-    public function testCreateSetsExpectedPropertyValues()
+    public function testCreateSetsExpectedPropertyValues(): void
     {
         $ellipsoid = $this->instance->create(EllipsoidFactory::ELLIPSOID_WGS84);
 
@@ -75,7 +75,7 @@ class EllipsoidFactoryTest extends AbstractTestCase
         $this->assertEquals(self::AIRY_1830_FLATTENING, $ellipsoid->getFlattening());
     }
 
-    public function testCreateDefaultSetsExpectedPropertyValues()
+    public function testCreateDefaultSetsExpectedPropertyValues(): void
     {
         $ellipsoid = $this->instance->createDefault();
 
@@ -86,7 +86,7 @@ class EllipsoidFactoryTest extends AbstractTestCase
         $this->assertEquals(self::WGS84_FLATTENING, $ellipsoid->getFlattening());
     }
 
-    public function testCreatingAnInvalidEllipsoidThrowsAnException()
+    public function testCreatingAnInvalidEllipsoidThrowsAnException(): void
     {
         $exceptionThrown = false;
 

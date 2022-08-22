@@ -27,7 +27,7 @@ class DatumFactoryTest extends AbstractTestCase
         $this->instance = new DatumFactory(new EllipsoidFactory(), new HelmertTransformFactory());
     }
 
-    public function testCreateSetsExpectedPropertyValues()
+    public function testCreateSetsExpectedPropertyValues(): void
     {
         $datum = $this->instance->create(DatumFactory::DATUM_WGS84);
 
@@ -49,7 +49,7 @@ class DatumFactoryTest extends AbstractTestCase
         $this->assertEquals(EllipsoidFactory::ELLIPSOID_AIRY_1830, $ellipsoid->getName());
     }
 
-    public function testCreateDefaultCreatesWgs84Datum()
+    public function testCreateDefaultCreatesWgs84Datum(): void
     {
         $datum = $this->instance->createDefault();
 
@@ -61,7 +61,7 @@ class DatumFactoryTest extends AbstractTestCase
         $this->assertEquals(EllipsoidFactory::ELLIPSOID_WGS84, $ellipsoid->getName());
     }
 
-    public function testCreatingAnInvalidDatumThrowsAnException()
+    public function testCreatingAnInvalidDatumThrowsAnException(): void
     {
         $exceptionThrown = false;
 

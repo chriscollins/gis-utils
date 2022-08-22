@@ -12,22 +12,22 @@ class Ellipsoid
     /**
      * @var string The name of the ellipsoid (e.g. "WGS84").
      */
-    private $name;
+    private string $name;
 
     /**
      * @var float The length of the Earth's semi-major axis a, AKA equatorial radius in metres.
      */
-    private $semiMajorAxisMetres;
+    private float $semiMajorAxisMetres;
 
     /**
      * @var float The length of the Earth's semi-minor axis b, AKA polar radius in metres.
      */
-    private $semiMinorAxisMetres;
+    private float $semiMinorAxisMetres;
 
     /**
      * @var float The flattening.
      */
-    private $flattening;
+    private float $flattening;
 
     /**
      * Constructor.
@@ -37,7 +37,7 @@ class Ellipsoid
      * @param float $semiMinorAxisMetres The length of the Earth's semi-minor axis b, AKA polar radius in metres.
      * @param float $flattening The flattening.
      */
-    public function __construct($name, $semiMajorAxisMetres, $semiMinorAxisMetres, $flattening)
+    public function __construct(string $name, float $semiMajorAxisMetres, float $semiMinorAxisMetres, float $flattening)
     {
         $this->name = $name;
         $this->semiMajorAxisMetres = $semiMajorAxisMetres;
@@ -50,7 +50,7 @@ class Ellipsoid
      *
      * @return string The value of the property.
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -60,9 +60,9 @@ class Ellipsoid
      *
      * @param string $name The new value of the property.
      *
-     * @return Ellipsoid This object.
+     * @return static This object.
      */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -74,7 +74,7 @@ class Ellipsoid
      *
      * @return float The value of the property.
      */
-    public function getSemiMajorAxisMetres()
+    public function getSemiMajorAxisMetres(): float
     {
         return $this->semiMajorAxisMetres;
     }
@@ -84,9 +84,9 @@ class Ellipsoid
      *
      * @param float $semiMajorAxisMetres The new value of the property.
      *
-     * @return Ellipsoid This object.
+     * @return static This object.
      */
-    public function setSemiMajorAxisMetres($semiMajorAxisMetres)
+    public function setSemiMajorAxisMetres(float $semiMajorAxisMetres): self
     {
         $this->semiMajorAxisMetres = $semiMajorAxisMetres;
 
@@ -98,7 +98,7 @@ class Ellipsoid
      *
      * @return float The value of the property.
      */
-    public function getSemiMinorAxisMetres()
+    public function getSemiMinorAxisMetres(): float
     {
         return $this->semiMinorAxisMetres;
     }
@@ -108,9 +108,9 @@ class Ellipsoid
      *
      * @param float $semiMinorAxisMetres The new value of the property.
      *
-     * @return Ellipsoid This object.
+     * @return static This object.
      */
-    public function setSemiMinorAxisMetres($semiMinorAxisMetres)
+    public function setSemiMinorAxisMetres(float $semiMinorAxisMetres): self
     {
         $this->semiMinorAxisMetres = $semiMinorAxisMetres;
 
@@ -122,7 +122,7 @@ class Ellipsoid
      *
      * @return float The value of the property.
      */
-    public function getFlattening()
+    public function getFlattening(): float
     {
         return $this->flattening;
     }
@@ -132,9 +132,9 @@ class Ellipsoid
      *
      * @param float $flattening The new value of the property.
      *
-     * @return Ellipsoid This object.
+     * @return static This object.
      */
-    public function setFlattening($flattening)
+    public function setFlattening(float $flattening): self
     {
         $this->flattening = $flattening;
 
@@ -146,7 +146,7 @@ class Ellipsoid
      *
      * @return float The inverse flattening.
      */
-    public function getInverseFlattening()
+    public function getInverseFlattening(): float
     {
         return 1 / $this->flattening;
     }
@@ -156,7 +156,7 @@ class Ellipsoid
      *
      * @return string A string representation of the object.
      */
-    public function toString()
+    public function toString(): string
     {
         return $this->name;
     }
