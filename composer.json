@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": ">=7.4.0",
-        "pimple/pimple": "~3.5.0",
-        "chriscollins/general-utils": "~1.0.0"
+        "pimple/pimple": "~3.5",
+        "chriscollins/general-utils": "~2.0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.5.22",
