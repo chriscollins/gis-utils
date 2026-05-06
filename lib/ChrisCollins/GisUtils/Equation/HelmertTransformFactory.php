@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Equation;
 
 use ChrisCollins\GisUtils\AbstractFactory;
@@ -10,17 +12,15 @@ use InvalidArgumentException;
  * HelmertTransformFactory
  *
  * Class for creating HelmertTransform instances for transforming points across datums.
+ *
+ * @extends AbstractFactory<HelmertTransform>
  */
 class HelmertTransformFactory extends AbstractFactory
 {
-    /**
-     * @var string The name of the base datum.
-     */
+    /** @var string The name of the base datum. */
     public const BASE_DATUM = DatumFactory::DATUM_WGS84;
 
-    /**
-     * @var array Array of data for transforming coordinates from WGS84 to the given datum.
-     */
+    /** @var array<string,array<string,float>> Array of data for transforming coordinates from WGS84 to the given datum. */
     protected static $data = [
         DatumFactory::DATUM_OSGB36 => [
             'translationX' => -446.448,
@@ -47,11 +47,9 @@ class HelmertTransformFactory extends AbstractFactory
      *
      * @param string $datum The name of the datum to transform to.
      *
-     * @return HelmertTransform A HelmertTransform to convert one datum to another.
-     *
      * @throws InvalidArgumentException If the datum is not supported.
      */
-    public function createTransformFromBaseToDatum($datum)
+    public function createTransformFromBaseToDatum(string $datum): HelmertTransform
     {
         return $this->create($datum);
     }
@@ -61,11 +59,9 @@ class HelmertTransformFactory extends AbstractFactory
      *
      * @param string $datum The name of the datum to transform from.
      *
-     * @return HelmertTransform A HelmertTransform to convert one datum to another.
-     *
      * @throws InvalidArgumentException If the datum is not supported.
      */
-    public function createTransformFromDatumToBase($datum)
+    public function createTransformFromDatumToBase(string $datum): HelmertTransform
     {
         $helmertTransform = $this->create($datum);
 
@@ -73,9 +69,9 @@ class HelmertTransformFactory extends AbstractFactory
     }
 
     /**
-     * {@inheritdoc}
+     * @param array<string,float> $data
      */
-    protected function createFromData($name, array $data): HelmertTransform
+    protected function createFromData(string $name, array $data): HelmertTransform
     {
         return new HelmertTransform(
             $data['translationX'],

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Lookup;
 
-use ChrisCollins\GisUtils\Address\AddressInterface;
+use ChrisCollins\GisUtils\Address\Address;
 use ChrisCollins\GisUtils\Coordinate\LatLong;
+use ChrisCollins\GisUtils\Exception\AddressNotFoundException;
 
 /**
  * LookupInterface
@@ -15,11 +18,7 @@ interface LookupInterface
     /**
      * Obtain a LatLng from an address.
      *
-     * @param AddressInterface $address The address to lookup.
-     *
-     * @return LatLong The LatLong.
-     *
      * @throws AddressNotFoundException If the address is not found.
      */
-    public function addressToLatLong(AddressInterface $address): LatLong;
+    public function addressToLatLong(Address $address): LatLong;
 }

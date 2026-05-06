@@ -1,32 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Test\Equation;
 
-use ChrisCollins\GisUtils\Equation\HelmertTransformFactory;
-use ChrisCollins\GisUtils\Equation\HelmertTransform;
 use ChrisCollins\GisUtils\Datum\DatumFactory;
+use ChrisCollins\GisUtils\Equation\HelmertTransform;
+use ChrisCollins\GisUtils\Equation\HelmertTransformFactory;
 use ChrisCollins\GisUtils\Test\AbstractTestCase;
-use \InvalidArgumentException;
+use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * HelmertTransformFactoryTest
  */
-class HelmertTransformFactoryTest extends AbstractTestCase
+final class HelmertTransformFactoryTest extends AbstractTestCase
 {
-    /**
-     * @var HelmertTransformFactory A HelmertTransformFactory instance.
-     */
+    /** @var HelmertTransformFactory A HelmertTransformFactory instance. */
     private $instance;
 
-    /**
-     * Set up.
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->instance = new HelmertTransformFactory();
     }
 
-    public function testCreateTransformFromBaseToDatumReturnsExpectedHelmertTransform(): void
+    #[Test]
+    public function createTransformFromBaseToDatumReturnsExpectedHelmertTransform(): void
     {
         $expected = $this->getOSGB36ToBaseHelmertTransform();
         $actual = $this->instance->createTransformFromBaseToDatum(DatumFactory::DATUM_OSGB36);
@@ -34,7 +33,8 @@ class HelmertTransformFactoryTest extends AbstractTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testCreateTransformFromDatumToBaseReturnsExpectedHelmertTransform(): void
+    #[Test]
+    public function createTransformFromDatumToBaseReturnsExpectedHelmertTransform(): void
     {
         $expected = $this->getOSGB36ToBaseHelmertTransform()
             ->getReverseHelmertTransform();
@@ -44,26 +44,28 @@ class HelmertTransformFactoryTest extends AbstractTestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testCreateTransformFromBaseToDatumThrowsExceptionForUnknownDatum(): void
+    #[Test]
+    public function createTransformFromBaseToDatumThrowsExceptionForUnknownDatum(): void
     {
         $exceptionThrown = false;
 
         try {
             $this->instance->createTransformFromBaseToDatum('Nonexistant datum');
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             $exceptionThrown = true;
         }
 
         $this->assertTrue($exceptionThrown);
     }
 
-    public function testCreateTransformFromDatumToBaseThrowsExceptionForUnknownDatum(): void
+    #[Test]
+    public function createTransformFromDatumToBaseThrowsExceptionForUnknownDatum(): void
     {
         $exceptionThrown = false;
 
         try {
             $this->instance->createTransformFromDatumToBase('Nonexistant datum');
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             $exceptionThrown = true;
         }
 

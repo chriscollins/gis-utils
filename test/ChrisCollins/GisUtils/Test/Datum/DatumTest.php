@@ -1,59 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Test\Datum;
 
 use ChrisCollins\GisUtils\Datum\Datum;
 use ChrisCollins\GisUtils\Datum\DatumFactory;
 use ChrisCollins\GisUtils\Ellipsoid\Ellipsoid;
 use ChrisCollins\GisUtils\Ellipsoid\EllipsoidFactory;
-use ChrisCollins\GisUtils\Equation\HelmertTransform;
 use ChrisCollins\GisUtils\Equation\HelmertTransformFactory;
 use ChrisCollins\GisUtils\Test\AbstractTestCase;
+use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * DatumTest
  */
-class DatumTest extends AbstractTestCase
+final class DatumTest extends AbstractTestCase
 {
-    /**
-     * @var string Constant for name of WGS84 datum.
-     */
-    const WGS84_NAME = 'WGS84';
+    /** @var string Constant for name of WGS84 datum. */
+    public const WGS84_NAME = 'WGS84';
 
-    /**
-     * @var string Constant for equatorial radius in metres of WGS84 datum.
-     */
-    const WGS84_SEMI_MAJOR_AXIS_METRES = 6378137;
+    /** @var int Constant for equatorial radius in metres of WGS84 datum. */
+    public const WGS84_SEMI_MAJOR_AXIS_METRES = 6378137;
 
-    /**
-     * @var string Constant for polar radius in metres of WGS84 datum.
-     */
-    const WGS84_SEMI_MINOR_AXIS_METRES = 6356752.314140;
+    /** @var float Constant for polar radius in metres of WGS84 datum. */
+    public const WGS84_SEMI_MINOR_AXIS_METRES = 6356752.314140;
 
-    /**
-     * @var string Constant for inverse flattening of WGS84 datum.
-     */
-    const WGS84_INVERSE_FLATTENING = 298.257223563;
+    /** @var float Constant for inverse flattening of WGS84 datum. */
+    public const WGS84_INVERSE_FLATTENING = 298.257223563;
 
-    /**
-     * @var Datum A Datum instance.
-     */
+    /** @var Datum A Datum instance. */
     private $instance;
 
-    /**
-     * @var EllipsoidFactory An EllipsoidFactory.
-     */
-    private $ellipsoidFactory;
-
-    /**
-     * @var Ellipsoid The ellipsoid to use.
-     */
+    /** @var Ellipsoid The ellipsoid to use. */
     private $ellipsoid;
 
-    /**
-     * Set up.
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $ellipsoidFactory = new EllipsoidFactory();
         $this->ellipsoid = $ellipsoidFactory->create(EllipsoidFactory::ELLIPSOID_WGS84);
@@ -61,7 +45,8 @@ class DatumTest extends AbstractTestCase
         $this->instance = new Datum(self::WGS84_NAME, $this->ellipsoid);
     }
 
-    public function testConstructorSetsExpectedPropertyValues(): void
+    #[Test]
+    public function constructorSetsExpectedPropertyValues(): void
     {
         $this->assertEquals(self::WGS84_NAME, $this->instance->getName());
         $this->assertEquals($this->ellipsoid, $this->instance->getEllipsoid());
@@ -72,19 +57,19 @@ class DatumTest extends AbstractTestCase
      *
      * @param string $propertyName The name of the property.
      * @param mixed $propertyValue The value of the property.
-     *
-     * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
+    #[DataProvider('getPropertyNamesAndTestValues')]
+    #[Test]
+    public function gettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
-        $ucfirstPropertyName = ucfirst($propertyName);
+        $ucfirstPropertyName = ucfirst((string) $propertyName);
 
         $setter = 'set' . $ucfirstPropertyName;
         $getter = 'get' . $ucfirstPropertyName;
 
         // Assert setters return the object.
         $object = $this->instance->$setter($propertyValue);
-        $this->assertInstanceOf('ChrisCollins\GisUtils\Datum\Datum', $object);
+        $this->assertInstanceOf(Datum::class, $object);
         $this->assertEquals($this->instance, $object);
 
         $this->assertEquals($propertyValue, $this->instance->$getter());
@@ -93,23 +78,21 @@ class DatumTest extends AbstractTestCase
     /**
      * Data provider to provide test values for each property of the object.
      *
-     * @return array An array, each element an array containing a property name and a test value.
+     * @return Iterator<(int | string), mixed> An array, each element an array containing a property name and a test value.
      */
-    public static function getPropertyNamesAndTestValues()
+    public static function getPropertyNamesAndTestValues(): Iterator
     {
         $ellipsoidFactory = new EllipsoidFactory();
         $ellipsoid = $ellipsoidFactory->create(EllipsoidFactory::ELLIPSOID_WGS84);
         $helmertTransformFactory = new HelmertTransformFactory();
         $helmertTransform = $helmertTransformFactory->createTransformFromBaseToDatum(DatumFactory::DATUM_OSGB36);
-
-        return array(
-            array('name', self::WGS84_NAME),
-            array('ellipsoid', $ellipsoid),
-            array('fromWgs84HelmertTransform', $helmertTransform)
-        );
+        yield ['name', self::WGS84_NAME];
+        yield ['ellipsoid', $ellipsoid];
+        yield ['fromWgs84HelmertTransform', $helmertTransform];
     }
 
-    public function testGetToWgs84HelmertTransformReturnsReversedHelmertTransform(): void
+    #[Test]
+    public function getToWgs84HelmertTransformReturnsReversedHelmertTransform(): void
     {
         $helmertTransformFactory = new HelmertTransformFactory();
         $helmertTransform = $helmertTransformFactory->createTransformFromBaseToDatum(DatumFactory::DATUM_OSGB36);
@@ -122,8 +105,9 @@ class DatumTest extends AbstractTestCase
         );
     }
 
-    public function testToStringMethodReturnsExpectedResult(): void
+    #[Test]
+    public function toStringMethodReturnsExpectedResult(): void
     {
-        $this->assertEquals($this->instance->getName(), $this->instance->toString());
+        $this->assertEquals($this->instance->getName(), (string) $this->instance);
     }
 }

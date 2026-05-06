@@ -1,8 +1,8 @@
 <?php
 
-namespace ChrisCollins\GisUtils\Test\Fixture;
+declare(strict_types=1);
 
-use ChrisCollins\GisUtils\Test\Fixture\AbstractJsonLoadingFixture;
+namespace ChrisCollins\GisUtils\Test\Fixture;
 
 /**
  * GoogleGeocoderFixture
@@ -11,10 +11,7 @@ use ChrisCollins\GisUtils\Test\Fixture\AbstractJsonLoadingFixture;
  */
 class GoogleGeocoderFixture extends AbstractJsonLoadingFixture
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getJsonDirectory()
+    protected function getJsonDirectory(): string
     {
         return __DIR__ . DIRECTORY_SEPARATOR . 'GoogleGeocoderJson';
     }

@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Ellipsoid;
 
 use ChrisCollins\GisUtils\AbstractFactory;
-use InvalidArgumentException;
 
 /**
  * EllipsoidFactory
  *
  * A class for creating ellipsoids.
+ *
+ * @extends AbstractFactory<Ellipsoid>
  */
 class EllipsoidFactory extends AbstractFactory
 {
@@ -16,13 +19,14 @@ class EllipsoidFactory extends AbstractFactory
      * @var string Constant for the name of the ellipsoid.
      */
     public const ELLIPSOID_WGS84 = 'WGS84';
+
     public const ELLIPSOID_AIRY_1830 = 'AIRY_1830';
+
     public const ELLIPSOID_INTERNATIONAL_1924 = 'INTERNATIONAL_1924';
+
     /**#@-*/
 
-    /**
-     * @var array Array of configuration for all supported ellipsoids, keyed on their names.
-     */
+    /** @var array<string,array<string,int|float>> Array of configuration for all supported ellipsoids, keyed on their names. */
     protected static $data = [
         self::ELLIPSOID_WGS84 => [
             'semiMajorAxisMetres' => 6378137,
@@ -42,7 +46,7 @@ class EllipsoidFactory extends AbstractFactory
     ];
 
     /**
-     * {@inheritdoc}
+     * @param array<string,float|int> $data
      */
     protected function createFromData(string $name, array $data): Ellipsoid
     {
@@ -54,11 +58,6 @@ class EllipsoidFactory extends AbstractFactory
         );
     }
 
-    /**
-     * Factory method to create the default ellipsoid.
-     *
-     * @return Ellipsoid An Ellipsoid.
-     */
     public function createDefault(): Ellipsoid
     {
         return $this->create(self::ELLIPSOID_WGS84);

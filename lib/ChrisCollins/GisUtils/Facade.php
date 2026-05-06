@@ -1,14 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils;
 
 use ChrisCollins\GeneralUtils\Curl\CurlHandle;
+use ChrisCollins\GeneralUtils\Exception\JsonException;
 use ChrisCollins\GeneralUtils\Json\JsonCodec;
-use ChrisCollins\GisUtils\Address\AddressInterface;
+use ChrisCollins\GisUtils\Address\Address;
+use ChrisCollins\GisUtils\Coordinate\LatLong;
+use ChrisCollins\GisUtils\Datum\Datum;
 use ChrisCollins\GisUtils\Datum\DatumFactory;
+use ChrisCollins\GisUtils\Ellipsoid\Ellipsoid;
 use ChrisCollins\GisUtils\Ellipsoid\EllipsoidFactory;
 use ChrisCollins\GisUtils\Equation\HelmertTransformFactory;
+use ChrisCollins\GisUtils\Exception\AddressNotFoundException;
+use ChrisCollins\GisUtils\Exception\GoogleGeocoderException;
 use ChrisCollins\GisUtils\Lookup\GoogleLookup;
+use InvalidArgumentException;
 use Pimple\Container;
 
 /**
@@ -18,48 +27,40 @@ use Pimple\Container;
  */
 class Facade extends Container
 {
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
-        $this['EllipsoidFactory'] = function () {
-            return new EllipsoidFactory();
-        };
+        $this['EllipsoidFactory'] = (fn (): EllipsoidFactory => new EllipsoidFactory());
 
-        $this['HelmertTransformFactory'] = function () {
-            return new HelmertTransformFactory();
-        };
+        $this['HelmertTransformFactory'] = (fn (): HelmertTransformFactory => new HelmertTransformFactory());
 
-        $this['DatumFactory'] = function ($container) {
-            return new DatumFactory($container['EllipsoidFactory'], $container['HelmertTransformFactory']);
-        };
+        $this['DatumFactory'] = (
+            fn ($container): DatumFactory => new DatumFactory(
+                $container['EllipsoidFactory'],
+                $container['HelmertTransformFactory']
+            )
+        );
 
-        $this['CurlHandle'] = function () {
-            return new CurlHandle();
-        };
+        $this['CurlHandle'] = (fn (): CurlHandle => new CurlHandle());
 
-        $this['JsonCodec'] = function () {
-            return new JsonCodec();
-        };
+        $this['JsonCodec'] = (fn (): JsonCodec => new JsonCodec());
 
-        $this['GoogleLookup'] = function ($container) {
-            return new GoogleLookup($container['DatumFactory'], $container['CurlHandle'], $container['JsonCodec']);
-        };
+        $this['GoogleLookup'] = (
+            fn ($container): GoogleLookup => new GoogleLookup(
+                $container['DatumFactory'],
+                $container['CurlHandle'],
+                $container['JsonCodec']
+            )
+        );
     }
 
     /**
      * Convert an address to a LatLong via Google's geocoder.
      *
-     * @param AddressInterface $address The address to look up.
-     *
-     * @return LatLong A LatLong representing the address.
-     *
      * @throws AddressNotFoundException If the address is not found.
      * @throws GoogleGeocoderException If there was an issue with the Google Geocoder service.
      * @throws JsonException If there was an issue with the format of the JSON.
      */
-    public function googleAddressToLatLong(AddressInterface $address)
+    public function googleAddressToLatLong(Address $address): LatLong
     {
         return $this['GoogleLookup']->addressToLatLong($address);
     }
@@ -67,22 +68,17 @@ class Facade extends Container
     /**
      * Create a Datum via the factory.
      *
-     * @param string $name The name of the datum.
-     *
-     * @return Datum A Datum.
      * @throws InvalidArgumentException If the datum is not supported.
      */
-    public function createDatum($name)
+    public function createDatum(string $name): Datum
     {
         return $this['DatumFactory']->create($name);
     }
 
     /**
      * Create the default Datum via the factory.
-     *
-     * @return Datum A Datum.
      */
-    public function createDefaultDatum()
+    public function createDefaultDatum(): Datum
     {
         return $this['DatumFactory']->createDefault();
     }
@@ -90,22 +86,17 @@ class Facade extends Container
     /**
      * Create an Ellipsoid via the factory.
      *
-     * @param string $name The name of the ellipsoid.
-     *
-     * @return Ellipsoid An Ellipsoid.
      * @throws InvalidArgumentException If the ellipsoid is not supported.
      */
-    public function createEllipsoid($name)
+    public function createEllipsoid(string $name): Ellipsoid
     {
         return $this['EllipsoidFactory']->create($name);
     }
 
     /**
      * Create the default Ellipsoid via the factory.
-     *
-     * @return Ellipsoid An Ellipsoid.
      */
-    public function createDefaultEllipsoid()
+    public function createDefaultEllipsoid(): Ellipsoid
     {
         return $this['EllipsoidFactory']->createDefault();
     }

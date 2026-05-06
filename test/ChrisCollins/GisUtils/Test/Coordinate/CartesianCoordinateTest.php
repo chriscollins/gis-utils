@@ -1,40 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Test\Coordinate;
 
-use ChrisCollins\GisUtils\Test\AbstractTestCase;
 use ChrisCollins\GisUtils\Coordinate\CartesianCoordinate;
-use ChrisCollins\GisUtils\Coordinate\LatLong;
 use ChrisCollins\GisUtils\Datum\DatumFactory;
-use ChrisCollins\GisUtils\Equation\HelmertTransformFactory;
 use ChrisCollins\GisUtils\Ellipsoid\EllipsoidFactory;
+use ChrisCollins\GisUtils\Equation\HelmertTransformFactory;
+use ChrisCollins\GisUtils\Test\AbstractTestCase;
+use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * CartesianCoordinateTest
  */
-class CartesianCoordinateTest extends AbstractTestCase
+final class CartesianCoordinateTest extends AbstractTestCase
 {
-    /**
-     * @var CartesianCoordinate A CartesianCoordinate instance.
-     */
+    /** @var CartesianCoordinate A CartesianCoordinate instance. */
     private $instance;
 
-    /**
-     * @var DatumFactory A DatumFactory instance.
-     */
+    /** @var DatumFactory A DatumFactory instance. */
     private $datumFactory;
 
-    /**
-     * Set up.
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->datumFactory = new DatumFactory(new EllipsoidFactory(), new HelmertTransformFactory());
 
         $this->instance = new CartesianCoordinate(123.4, 456.7, 789.1, $this->datumFactory->createDefault());
     }
 
-    public function testConstructorSetsExpectedPropertyValues(): void
+    #[Test]
+    public function constructorSetsExpectedPropertyValues(): void
     {
         $x = 123.4;
         $y = 456.7;
@@ -43,9 +41,9 @@ class CartesianCoordinateTest extends AbstractTestCase
 
         $instance = new CartesianCoordinate($x, $y, $z, $datum);
 
-        $this->assertEquals($x, $instance->getX());
-        $this->assertEquals($y, $instance->getY());
-        $this->assertEquals($z, $instance->getZ());
+        $this->assertSame($x, $instance->getX());
+        $this->assertSame($y, $instance->getY());
+        $this->assertSame($z, $instance->getZ());
         $this->assertEquals($datum, $instance->getDatum());
     }
 
@@ -54,19 +52,19 @@ class CartesianCoordinateTest extends AbstractTestCase
      *
      * @param string $propertyName The name of the property.
      * @param mixed $propertyValue The value of the property.
-     *
-     * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
+    #[DataProvider('getPropertyNamesAndTestValues')]
+    #[Test]
+    public function gettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
-        $ucfirstPropertyName = ucfirst($propertyName);
+        $ucfirstPropertyName = ucfirst((string) $propertyName);
 
         $setter = 'set' . $ucfirstPropertyName;
         $getter = 'get' . $ucfirstPropertyName;
 
         // Assert setters return the object.
         $object = $this->instance->$setter($propertyValue);
-        $this->assertInstanceOf('ChrisCollins\GisUtils\Coordinate\CartesianCoordinate', $object);
+        $this->assertInstanceOf(CartesianCoordinate::class, $object);
         $this->assertEquals($this->instance, $object);
 
         $this->assertEquals($propertyValue, $this->instance->$getter());
@@ -75,21 +73,19 @@ class CartesianCoordinateTest extends AbstractTestCase
     /**
      * Data provider to provide test values for each property of the object.
      *
-     * @return array An array, each element an array containing a property name and a test value.
+     * @return Iterator<(int | string), mixed> An array, each element an array containing a property name and a test value.
      */
-    public static function getPropertyNamesAndTestValues()
+    public static function getPropertyNamesAndTestValues(): Iterator
     {
         $datumFactory = new DatumFactory(new EllipsoidFactory(), new HelmertTransformFactory());
-
-        return array(
-            array('x', 123.4),
-            array('y', 456.7),
-            array('z', 789.1),
-            array('datum', $datumFactory->createDefault())
-        );
+        yield ['x', 123.4];
+        yield ['y', 456.7];
+        yield ['z', 789.1];
+        yield ['datum', $datumFactory->createDefault()];
     }
 
-    public function testToLatLongReturnsExpectedResult(): void
+    #[Test]
+    public function toLatLongReturnsExpectedResult(): void
     {
         $datum = $this->datumFactory->create(DatumFactory::DATUM_OSGB36);
         $this->instance = new CartesianCoordinate(3874938.8795, 116218.5175, 5047168.1878, $datum);
@@ -104,7 +100,8 @@ class CartesianCoordinateTest extends AbstractTestCase
         $this->assertEquals($datum, $latLong->getDatum());
     }
 
-    public function testToStringMethodReturnsExpectedResult(): void
+    #[Test]
+    public function toStringMethodReturnsExpectedResult(): void
     {
         $x = 123.4;
         $y = 456.7;
@@ -112,8 +109,8 @@ class CartesianCoordinateTest extends AbstractTestCase
 
         $instance = new CartesianCoordinate($x, $y, $z, $this->datumFactory->createDefault());
 
-        $expected = "{$x}, {$y}, {$z}";
+        $expected = sprintf('%s, %s, %s', $x, $y, $z);
 
-        $this->assertEquals($expected, $instance->toString());
+        $this->assertSame($expected, (string) $instance);
     }
 }

@@ -1,15 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Lookup;
 
+use ChrisCollins\GeneralUtils\Curl\CurlHandle;
+use ChrisCollins\GeneralUtils\Exception\JsonException;
+use ChrisCollins\GeneralUtils\Json\JsonCodec;
+use ChrisCollins\GisUtils\Address\Address;
 use ChrisCollins\GisUtils\Coordinate\LatLong;
 use ChrisCollins\GisUtils\Datum\DatumFactory;
-use ChrisCollins\GisUtils\Address\AddressInterface;
-use ChrisCollins\GeneralUtils\Json\JsonCodec;
-use ChrisCollins\GeneralUtils\Curl\CurlHandle;
-use ChrisCollins\GisUtils\Address\Address;
-use ChrisCollins\GisUtils\Exception\GoogleGeocoderException;
 use ChrisCollins\GisUtils\Exception\AddressNotFoundException;
+use ChrisCollins\GisUtils\Exception\GoogleGeocoderException;
 
 /**
  * GoogleLookup
@@ -21,62 +23,30 @@ use ChrisCollins\GisUtils\Exception\AddressNotFoundException;
  */
 class GoogleLookup implements LookupInterface
 {
-    /**
-     * @var string Constant for the datum that coordinates returned by the service use.
-     */
+    /** @var string Constant for the datum that coordinates returned by the service use. */
     public const SERVICE_DATUM = DatumFactory::DATUM_WGS84;
 
-    /**
-     * @var string Constant for the base URL (without the scheme) for the service.
-     */
+    /** @var string Constant for the base URL (without the scheme) for the service. */
     private const SERVICE_BASE_URL = 'maps.googleapis.com/maps/api/geocode/json';
 
-    /**
-     * @var DatumFactory The DatumFactory to use when creating LatLongs.
-     */
-    private DatumFactory $datumFactory;
-
-    /**
-     * @var CurlHandle The CurlHandle to use when making requests.
-     */
-    private CurlHandle $curlHandle;
-
-    /**
-     * @var JsonCodec The JsonCodec to use to decode JSON responses.
-     */
-    private JsonCodec $jsonCodec;
-
-    /**
-     * @var bool Whether or not HTTPS requests should be made.
-     */
+    /** @var bool Whether or not HTTPS requests should be made. */
     private bool $useHttps = true;
 
-    /**
-     * Constructor.
-     *
-     * @param DatumFactory $datumFactory The DatumFactory.
-     * @param CurlHandle $curlHandle The CurlHandle.
-     * @param JsonCodec $jsonCodec The JsonCodec.
-     */
-    public function __construct(DatumFactory $datumFactory, CurlHandle $curlHandle, JsonCodec $jsonCodec)
-    {
-        $this->datumFactory = $datumFactory;
-        $this->curlHandle = $curlHandle;
-        $this->jsonCodec = $jsonCodec;
+    public function __construct(
+        private readonly DatumFactory $datumFactory,
+        private readonly CurlHandle $curlHandle,
+        private readonly JsonCodec $jsonCodec
+    ) {
     }
 
     /**
      * Obtain a LatLng from an address.
      *
-     * @param AddressInterface $address The address to lookup.
-     *
-     * @return LatLong The LatLong.
-     *
      * @throws AddressNotFoundException If the address is not found.
      * @throws GoogleGeocoderException If there was an issue with the Google Geocoder service.
      * @throws JsonException If there was an issue with the format of the JSON.
      */
-    public function addressToLatLong(AddressInterface $address): LatLong
+    public function addressToLatLong(Address $address): LatLong
     {
         $url = $this->getServiceUrl($address);
         $json = $this->makeRequest($url);
@@ -87,15 +57,12 @@ class GoogleLookup implements LookupInterface
     /**
      * Parse the response from the service, creating a LatLong instance from it if possible.
      *
-     * @param string $json The JSON from the response.
-     *
-     * @return LatLong A LatLong representing the response.
-     *
      * @throws AddressNotFoundException If the address was not found.
      * @throws JsonException If the JSON was unable to be decoded.
      */
     private function parseServiceResponse(string $json): LatLong
     {
+        /** @var array<string,mixed> $decoded */
         $decoded = $this->jsonCodec->decode($json, true);
 
         $latLong = null;
@@ -113,7 +80,7 @@ class GoogleLookup implements LookupInterface
             }
         }
 
-        if ($latLong === null) {
+        if (!$latLong instanceof LatLong) {
             throw new AddressNotFoundException('Unable to find coordinates for address.');
         }
 
@@ -121,11 +88,7 @@ class GoogleLookup implements LookupInterface
     }
 
     /**
-     * Make a request to the service.
-     *
-     * @param string $url The service URL.
-     *
-     * @return string The response JSON.
+     * Make a request to the service and get the response JSON.
      */
     private function makeRequest(string $url): string
     {
@@ -141,42 +104,21 @@ class GoogleLookup implements LookupInterface
         return $responseContent;
     }
 
-    /**
-     * Get the URL for the service.
-     *
-     * @param Address $address The address.
-     *
-     * @return string The service URL.
-     */
     private function getServiceUrl(Address $address): string
     {
-        $query = http_build_query(
-            [
-                'address' => $address->toString(),
+        $query = http_build_query([
+                'address' => (string) $address,
                 'sensor' => 'false'
-            ]
-        );
+            ]);
 
         return ($this->useHttps ? 'https' : 'http') . self::SERVICE_BASE_URL . '?' . $query;
     }
 
-    /**
-     * Accessor method.
-     *
-     * @return bool The value of the property.
-     */
     public function getUseHttps(): bool
     {
         return $this->useHttps;
     }
 
-    /**
-     * Mutator method.
-     *
-     * @param bool $useHttps The value of the property.
-     *
-     * @return static This object.
-     */
     public function setUseHttps(bool $useHttps): self
     {
         $this->useHttps = $useHttps;

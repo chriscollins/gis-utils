@@ -1,37 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Test\Equation;
 
 use ChrisCollins\GisUtils\Equation\HelmertTransform;
 use ChrisCollins\GisUtils\Test\AbstractTestCase;
+use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 /**
  * HelmertTransformTest
  */
-class HelmertTransformTest extends AbstractTestCase
+final class HelmertTransformTest extends AbstractTestCase
 {
-    /**
-     * @var HelmertTransform A HelmertTransform instance.
-     */
+    /** @var HelmertTransform A HelmertTransform instance. */
     private $instance;
 
-    /**
-     * Set up.
-     */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->instance = new HelmertTransform(-446.448, 125.157, -542.060, -0.1502, -0.2470, -0.8421, 20.4894);
     }
 
-    public function testConstructorSetsExpectedPropertyValues(): void
+    #[Test]
+    public function constructorSetsExpectedPropertyValues(): void
     {
         $this->assertEquals(-446.448, $this->instance->getTranslationX());
-        $this->assertEquals(125.157, $this->instance->getTranslationY());
+        $this->assertEqualsWithDelta(125.157, $this->instance->getTranslationY(), PHP_FLOAT_EPSILON);
         $this->assertEquals(-542.060, $this->instance->getTranslationZ());
         $this->assertEquals(-0.1502, $this->instance->getRotationX());
         $this->assertEquals(-0.2470, $this->instance->getRotationY());
         $this->assertEquals(-0.8421, $this->instance->getRotationZ());
-        $this->assertEquals(20.4894, $this->instance->getScaleFactor());
+        $this->assertEqualsWithDelta(20.4894, $this->instance->getScaleFactor(), PHP_FLOAT_EPSILON);
     }
 
     /**
@@ -39,19 +40,19 @@ class HelmertTransformTest extends AbstractTestCase
      *
      * @param string $propertyName The name of the property.
      * @param mixed $propertyValue The value of the property.
-     *
-     * @dataProvider getPropertyNamesAndTestValues
      */
-    public function testGettersReturnValuesSetBySetters($propertyName, $propertyValue): void
+    #[DataProvider('getPropertyNamesAndTestValues')]
+    #[Test]
+    public function gettersReturnValuesSetBySetters($propertyName, $propertyValue): void
     {
-        $ucfirstPropertyName = ucfirst($propertyName);
+        $ucfirstPropertyName = ucfirst((string) $propertyName);
 
         $setter = 'set' . $ucfirstPropertyName;
         $getter = 'get' . $ucfirstPropertyName;
 
         // Assert setters return the object.
         $object = $this->instance->$setter($propertyValue);
-        $this->assertInstanceOf('ChrisCollins\GisUtils\Equation\HelmertTransform', $object);
+        $this->assertInstanceOf(HelmertTransform::class, $object);
         $this->assertEquals($this->instance, $object);
 
         $this->assertEquals($propertyValue, $this->instance->$getter());
@@ -60,22 +61,21 @@ class HelmertTransformTest extends AbstractTestCase
     /**
      * Data provider to provide test values for each property of the object.
      *
-     * @return array An array, each element an array containing a property name and a test value.
+     * @return Iterator<(int | string), mixed> An array, each element an array containing a property name and a test value.
      */
-    public static function getPropertyNamesAndTestValues()
+    public static function getPropertyNamesAndTestValues(): Iterator
     {
-        return array(
-            array('translationX', -446.448),
-            array('translationY', 125.157),
-            array('translationZ', -542.060),
-            array('rotationX', -0.1502),
-            array('rotationY', -0.2470),
-            array('rotationZ', -0.8421),
-            array('scaleFactor', 20.4894)
-        );
+        yield ['translationX', -446.448];
+        yield ['translationY', 125.157];
+        yield ['translationZ', -542.060];
+        yield ['rotationX', -0.1502];
+        yield ['rotationY', -0.2470];
+        yield ['rotationZ', -0.8421];
+        yield ['scaleFactor', 20.4894];
     }
 
-    public function testGetReverseHelmertTransformNegatesEachProperty(): void
+    #[Test]
+    public function getReverseHelmertTransformNegatesEachProperty(): void
     {
         $reverseTransform = $this->instance->getReverseHelmertTransform();
 

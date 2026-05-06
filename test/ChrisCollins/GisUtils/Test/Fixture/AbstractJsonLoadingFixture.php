@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Test\Fixture;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * AbstractJsonLoadingFixture
@@ -16,11 +18,9 @@ abstract class AbstractJsonLoadingFixture
      *
      * @param string $fileName The file name.
      *
-     * @return string The JSON.
-     *
      * @throws InvalidArgumentException If the file does not exist.
      */
-    public function getJsonFromFile($fileName)
+    public function getJsonFromFile(string $fileName): string
     {
         $directory = $this->getJsonDirectory();
 
@@ -30,6 +30,9 @@ abstract class AbstractJsonLoadingFixture
             throw new InvalidArgumentException('JSON fixture "' . $filePath . '" does not exist.');
         }
 
+        /** @var string */
         return file_get_contents($filePath);
     }
+
+    abstract protected function getJsonDirectory(): string;
 }

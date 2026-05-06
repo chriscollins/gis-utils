@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ChrisCollins\GisUtils\Test;
 
 use PHPUnit\Framework\TestCase;
@@ -22,8 +24,8 @@ abstract class AbstractTestCase extends TestCase
     public function assertEqualsWhenRounded($expected, $actual, $significantFigures, $message = null): void
     {
         if ($message === null) {
-            $message = "Failed asserting that {$actual} matches expected {$expected} when rounded to " .
-                "{$significantFigures} significant figures.";
+            $message = sprintf('Failed asserting that %s matches expected %s when rounded to ', $actual, $expected) .
+                ($significantFigures . ' significant figures.');
         }
 
         $this->assertEquals($expected, round($actual, $significantFigures), $message);
@@ -37,16 +39,25 @@ abstract class AbstractTestCase extends TestCase
      * @param float $tolerance The tolerance.
      * @param string|null $message An optional override message.
      */
-    public function assertEqualsWithinTolerance($expected, $actual, $tolerance, $message = null): void
-    {
+    public function assertEqualsWithinTolerance(
+        float $expected,
+        float $actual,
+        float $tolerance,
+        ?string $message = null
+    ): void {
         $difference = abs($expected - $actual);
 
         if ($message === null) {
-            $message = "Failed asserting that {$actual} matches expected {$expected} within tolerance of {$tolerance}"
-                . " (difference {$difference}).";
+            $message = sprintf(
+                'Failed asserting that %s matches expected %s within tolerance of %s',
+                $actual,
+                $expected,
+                $tolerance
+            )
+                . sprintf(' (difference %s).', $difference);
         }
 
-        $this->assertTrue($difference <= $tolerance, $message);
+        $this->assertLessThanOrEqual($tolerance, $difference, $message);
     }
 
     /**
@@ -57,15 +68,24 @@ abstract class AbstractTestCase extends TestCase
      * @param float $tolerance The percentage tolerance.
      * @param string|null $message An optional override message.
      */
-    public function assertEqualsWithinPercentageTolerance($expected, $actual, $tolerance, $message = null): void
-    {
+    public function assertEqualsWithinPercentageTolerance(
+        float $expected,
+        float $actual,
+        float $tolerance,
+        ?string $message = null
+    ): void {
         $percentageDifference = abs($expected - $actual) / $expected * 100;
 
         if ($message === null) {
-            $message = "Failed asserting that {$actual} matches expected {$expected} within tolerance of {$tolerance}%"
-                . " (difference {$percentageDifference}%).";
+            $message = sprintf(
+                'Failed asserting that %s matches expected %s within tolerance of %s%%',
+                $actual,
+                $expected,
+                $tolerance
+            )
+                . sprintf(' (difference %s%%).', $percentageDifference);
         }
 
-        $this->assertTrue($percentageDifference <= $tolerance, $message);
+        $this->assertLessThanOrEqual($tolerance, $percentageDifference, $message);
     }
 }
