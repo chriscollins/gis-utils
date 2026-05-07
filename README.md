@@ -15,7 +15,7 @@ Require in your project via composer as follows:
 ```json
 {
     "require": {
-        "chriscollins/gis-utils": "~2.0.0"
+        "chriscollins/gis-utils": "~3.0.0"
     }
 }
 ```
